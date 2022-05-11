@@ -1,0 +1,196 @@
+/* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+/* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+img {
+  border-style: none;
+}
+/* End extract */
+html,
+body {
+  font-family: Verdana, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.wide {
+  letter-spacing: 4px;
+}
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+.image {
+  max-width: 100%;
+  height: auto;
+}
+img {
+  vertical-align: middle;
+}
+a {
+  color: inherit;
+}
+
+.button {
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.tooltip,
+.display-container {
+  position: relative;
+}
+.bar {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.bar .bar-item {
+  padding: 8px 16px;
+  width: auto;
+  border: none;
+  display: block;
+  outline: 0;
+}
+@media screen and (max-width: 645px) {
+  .bar {
+    justify-content: center;
+  }
+  .bar-item.button {
+    text-align: center;
+  }
+}
+
+.bar .button {
+  white-space: normal;
+}
+.bar-item {
+  width: 100%;
+  display: block;
+  padding: 8px 16px;
+  text-align: left;
+  border: none;
+  white-space: normal;
+  float: none;
+  outline: 0;
+}
+.center .bar-item {
+  text-align: center;
+}
+.opacity-min {
+  opacity: 0.75;
+}
+.container:after,
+.container:before,
+.row:after,
+.row:before {
+  content: "";
+  display: table;
+  clear: both;
+}
+.col {
+  float: left;
+  width: 100%;
+}
+
+@media (min-width: 993px) {
+  .col.l6 {
+    width: 49.99999%;
+  }
+}
+.content {
+  margin-left: auto;
+  margin-right: auto;
+}
+.content {
+  max-width: 980px;
+}
+.top {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.display-container:hover .display-hover {
+  display: block;
+}
+.display-container:hover span.display-hover {
+  display: inline-block;
+}
+.round {
+  border-radius: 4px;
+}
+
+.row-padding > .col {
+  padding: 0 8px;
+}
+.container {
+  padding: 0.01em 16px;
+}
+
+.card {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.center {
+  text-align: center !important;
+}
+.padding {
+  padding: 8px 16px !important;
+}
+.padding-large {
+  padding: 12px 24px !important;
+}
+.padding-32 {
+  padding-top: 32px !important;
+  padding-bottom: 32px !important;
+}
+.padding-64 {
+  padding-top: 64px !important;
+  padding-bottom: 64px !important;
+}
+.right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Colors */
+.white,
+.hover-white:hover {
+  color: #000 !important;
+  background-color: #fff !important;
+}
+.light-grey,
+.hover-light-grey:hover {
+  color: #000 !important;
+  background-color: #f1f1f1 !important;
+}
