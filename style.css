@@ -45,7 +45,8 @@ a {
   color: inherit;
 }
 
-.text-grey {
+.text-english,
+.text-korean {
   font-size: large;
 }
 #btn-read {

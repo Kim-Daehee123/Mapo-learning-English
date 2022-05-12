@@ -1,5 +1,5 @@
 // 이벤트 영역
-const text = document.querySelector(".text-grey").innerText;
+const text = document.querySelector(".text-english").innerText;
 const btnRead = document.getElementById("btn-read");
 const btnKorean = document.getElementById("btn-korean");
 
@@ -25,14 +25,14 @@ function checkEng(str) {
 document.onpointerup = function () {
   if (!selectText().isCollapsed) {
     fetch(
-      `https://cors-anywhere.herokuapp.com/https://dict.naver.com/api3/enko/search?query=${selectText()}`
+      `https://my-simple-mapo-proxy.herokuapp.com/https://dict.naver.com/api3/enko/search?query=${selectText()}`
     )
       .then((response) => response.json())
       .then((data) => {
         let json = data.searchResultMap.searchResultListMap.WORD.items[0];
         if (json && json.meansCollector[0].means[0].value) {
           let resultHTML = "";
-          resultHTML = `<hr/><div>${json.expEntry}</div><hr/>`;
+          resultHTML = `<div>${json.expEntry}</div><hr/>`;
           for (let i = 0; i < json.meansCollector.length; i++) {
             if (json.meansCollector[i].partOfSpeech) {
               resultHTML += `<div>${json.meansCollector[i].partOfSpeech}</div><br/>`;
@@ -65,11 +65,11 @@ document.onpointerup = function () {
             resultHTML += "<hr/>";
           }
           resultHTML += `<div class="source">출처: ${json.sourceDictnameKO}</div>`;
-          document.getElementById("console").innerHTML = resultHTML;
+          document.getElementById("word").innerHTML = resultHTML;
         }
       });
   } else {
-    document.getElementById("console").innerHTML = "";
+    document.getElementById("word").innerHTML = "";
   }
 };
 
@@ -82,7 +82,6 @@ btnRead.addEventListener("click", (e) => {
 
 btnKorean.addEventListener("click", (e) => {
   const korean = document.querySelectorAll(".text-korean");
-  console.log(korean);
   if (korean.item(0).style.display == "block") {
     for (let i = 0; i < korean.length; i++) {
       korean.item(i).style.display = "none";
