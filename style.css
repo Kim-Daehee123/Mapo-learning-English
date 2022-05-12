@@ -38,12 +38,35 @@ hr {
   height: auto;
 }
 img {
+  justify-content: center;
   vertical-align: middle;
 }
 a {
   color: inherit;
 }
 
+.text-grey {
+  font-size: large;
+}
+#btn-read {
+  float: right;
+  border: none;
+  background-color: blanchedalmond;
+  cursor: pointer;
+}
+#btn-korean {
+  padding-left: 8px;
+  padding-right: 8px;
+  float: right;
+  border: none;
+  border-right: 1px solid lightgray;
+  background-color: blanchedalmond;
+  cursor: pointer;
+}
+
+.text-korean {
+  display: none;
+}
 .button {
   border: none;
   display: inline-block;
@@ -105,7 +128,7 @@ a {
   text-align: center;
 }
 .opacity-min {
-  opacity: 0.75;
+  opacity: 0.65;
 }
 .container:after,
 .container:before,
