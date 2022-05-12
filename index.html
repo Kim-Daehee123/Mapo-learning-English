@@ -23,7 +23,7 @@
   </head>
   <body id="home">
     <!-- Navbar (sit on top) -->
-    <div class="top" id="about">
+    <div class="top">
       <div class="bar white padding card" style="letter-spacing: 4px">
         <a href="#home" class="bar-item button">Mapo Learning English</a>
         <!-- Right-sided navbar links. -->
@@ -34,38 +34,54 @@
       </div>
     </div>
 
-    <!-- Header -->
-    <header
-      class="display-container content wide"
-      style="max-width: 1600px; min-width: 500px"
-    >
-      <img
-        class="image"
-        src="images/woods.jpg"
-        alt="Hamburger Catering"
-        width="1600"
-        height="800"
-      />
-    </header>
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 3</div>
+        <img src="images/img_nature_wide.jpg" style="width: 100%" />
+        <div class="text">Caption Text</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 3</div>
+        <img src="images/img_snow_wide.jpg" style="width: 100%" />
+        <div class="text">Caption Two</div>
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 3</div>
+        <img src="images/img_mountains_wide.jpg" style="width: 100%" />
+        <div class="text">Caption Three</div>
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+    </div><br>
+
+    <div style="text-align: center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+    <br><hr>
 
     <!-- Page content -->
     <div class="content" style="max-width: 1100px">
       <!-- Passage Section -->
       <div class="row padding-64" id="passage">
         <div class="col l6 padding-large">
-          <button id="btn-read"><i class="fa-solid fa-volume-high"></i></i></button>
-          <button id="btn-korean"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <button class="btn-read btn-read-part1"><i class="fa-solid fa-volume-high"></i></i></button>
+          <button class="btn-korean btn-korean-part1"><i class="fa-solid fa-arrow-pointer"></i></i></button>
           <h1 class="center">Magnolia</h1>
-          <h1 class="center">목련</h1>
+          <h1 class="center text-korean text-korean-part1 text-title-korean">목련</h1>
           <br />
           <p class="text-english">Magnolia, a flower symbolizing Mapo,</p>
-          <p class="text-korean">마포를 상징하는 꽃 목련은</p>
+          <p class="text-korean text-korean-part1">마포를 상징하는 꽃 목련은</p>
           <br />
           <p class="text-english">
             is a flower that blooms on magnolia trees before its leaves bloom
             around mid-April,
           </p>
-          <p class="text-korean">
+          <p class="text-korean text-korean-part1">
             4월 중순경 잎이 나기 전에 목련나무에 피는 꽃으로
           </p>
           <br />
@@ -73,7 +89,7 @@
             and is large, fragrant, and white with a clear and pure image of the
             sphere.
           </p>
-          <p class="text-korean">
+          <p class="text-korean text-korean-part1">
             긴 타원형으로 크고 향기가 진하며 백색으로 구의 맑고 청초한 이미지를
             담고 있습니다.
           </p>
@@ -84,12 +100,86 @@
           <img
             src="images/magnolia.jpg"
             class="round image opacity-min"
-            alt="Menu"
             style="width: 100%"
           />
         </div>
+      </div><hr>
+
+      <div class="row padding-64" id="about">
+        <div class="col m6 padding-large">
+         <img src="images/magnolia.jpg" class="round image opacity-min"  width="100%">
+        </div>
+    
+        <div class="col m6 padding-large">
+          <button class="btn-read btn-read-part2"><i class="fa-solid fa-volume-high"></i></i></button>
+          <button class="btn-korean btn-korean-part2"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <h1 class="center">Magnolia</h1>
+          <h1 class="center text-korean text-korean-part2 text-title-korean">목련</h1>
+          <br />
+          <p class="text-english">Magnolia, a flower symbolizing Mapo,</p>
+          <p class="text-korean text-korean-part2">마포를 상징하는 꽃 목련은</p>
+          <br />
+          <p class="text-english">
+            is a flower that blooms on magnolia trees before its leaves bloom
+            around mid-April,
+          </p>
+          <p class="text-korean text-korean-part2">
+            4월 중순경 잎이 나기 전에 목련나무에 피는 꽃으로
+          </p>
+          <br />
+          <p class="text-english">
+            and is large, fragrant, and white with a clear and pure image of the
+            sphere.
+          </p>
+          <p class="text-korean text-korean-part2">
+            긴 타원형으로 크고 향기가 진하며 백색으로 구의 맑고 청초한 이미지를
+            담고 있습니다.
+          </p>
+          <br />
+        </div>
+      </div>
+      <hr>
+
+      <div class="row padding-64" id="passage">
+        <div class="col l6 padding-large">
+          <button class="btn-read btn-read-part3"><i class="fa-solid fa-volume-high"></i></i></button>
+          <button class="btn-korean btn-korean-part3"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <h1 class="center">Magnolia</h1>
+          <h1 class="center text-korean text-korean-part1 text-title-korean">목련</h1>
+          <br />
+          <p class="text-english">Magnolia, a flower symbolizing Mapo,</p>
+          <p class="text-korean text-korean-part3">마포를 상징하는 꽃 목련은</p>
+          <br />
+          <p class="text-english">
+            is a flower that blooms on magnolia trees before its leaves bloom
+            around mid-April,
+          </p>
+          <p class="text-korean text-korean-part3">
+            4월 중순경 잎이 나기 전에 목련나무에 피는 꽃으로
+          </p>
+          <br />
+          <p class="text-english">
+            and is large, fragrant, and white with a clear and pure image of the
+            sphere.
+          </p>
+          <p class="text-korean text-korean-part3">
+            긴 타원형으로 크고 향기가 진하며 백색으로 구의 맑고 청초한 이미지를
+            담고 있습니다.
+          </p>
+          <br />
+        </div>
+
+        <div class="col l6 padding-large">
+          <img
+            src="images/magnolia.jpg"
+            class="round image opacity-min"
+            style="width: 100%"
+          />
+        </div>
+      </div><hr>
         
       </div>
+
       <div id="cal1"></div>
       <div id="cal2"></div>
       <div id="word"></div>
