@@ -1,4 +1,3 @@
-const text = document.querySelector(".text-english").innerText;
 let sel = window.getSelection();
 let rel1 = document.createRange();
 rel1.selectNode(document.getElementById("cal1"));
@@ -52,6 +51,14 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 
+fetch("passage.json")
+  .then((response) => response.json())
+  .then((json) => {
+    const passage = document.getElementById("passage");
+    let resultHTML = "";
+  });
+
+//드래그한 텍스트 가져오는 함수
 function selectText() {
   let selectionText = ""; //마우스로 드래그한 글
   if (document.getSelection) {
@@ -62,6 +69,7 @@ function selectText() {
   return selectionText;
 }
 
+//영어 단어 체크 함수
 function checkEng(str) {
   const regExp = /[a-zA-Z]/g; // 영어
   if (regExp.test(str)) {
@@ -71,6 +79,7 @@ function checkEng(str) {
   }
 }
 
+//단어 해석 함수
 document.onpointerup = function (e) {
   if (!selectText().isCollapsed) {
     let word = document.getElementById("word");
@@ -82,14 +91,50 @@ document.onpointerup = function (e) {
         if (data.searchResultMap) {
           let json = data.searchResultMap.searchResultListMap.WORD.items[0];
           let mapoWord = data.searchResultMap.searchResultListMap.WORD.query;
+          let r = sel.getRangeAt(0).getBoundingClientRect();
+          let rb1 = rel1.getBoundingClientRect();
+          let rb2 = rel2.getBoundingClientRect();
 
-          if (json.meansCollector[0].means[0].value) {
-            let r = sel.getRangeAt(0).getBoundingClientRect();
-            let rb1 = rel1.getBoundingClientRect();
-            let rb2 = rel2.getBoundingClientRect();
+          if (mapoWord == "Mapodong") {
+            let resultHTML = "";
+            let json =
+              data.searchResultMap.searchResultListMap.MEANING.items[0];
+            resultHTML += `<div><strong>${mapoWord}</strong>
+            </div><hr/>
+            <div>${json.expEntry}</div><br/>
+            <div>1. ${json.meansCollector[0].means[0].value}</div><hr/>
+            <div class="source">출처: ${json.sourceDictnameKO}</div>`;
+            word.style.top =
+              ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
+            word.style.left =
+              ((r.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
+            word.style.display = "block";
+            word.innerHTML = resultHTML;
+            return;
+          } else if (mapoWord == "Mapodong-e") {
+            let resultHTML = "";
+            let json =
+              data.searchResultMap.searchResultListMap.MEANING.items[0];
+            resultHTML += `<div><strong>${mapoWord}</strong>
+            </div><hr/>
+            <div>명사</div><br/>
+            <div>1. 마포구 상징 캐릭터</div><hr/>
+            <div class="source">출처: 마포구청 홈페이지</div>`;
+            word.style.top =
+              ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
+            word.style.left =
+              ((r.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
+            word.style.display = "block";
+            word.innerHTML = resultHTML;
+            return;
+          } else if (json) {
             let resultHTML = "";
 
-            if (mapoWord == "mapo" || mapoWord == "Mapo") {
+            if (
+              mapoWord == "mapo" ||
+              mapoWord == "Mapo" ||
+              mapoWord == "Mapo's"
+            ) {
               resultHTML += `<div><strong>${mapoWord}</strong>
               </div><hr/>
               <div>명사</div><br/>
@@ -149,17 +194,58 @@ document.onpointerup = function (e) {
   }
 };
 
-const btnRead = document.querySelector(".btn-read-part1");
-const audio = new Audio("tts/part1.mp3");
-btnRead.addEventListener("click", (e) => {
+//음성 버튼 클릭 이벤트
+
+document.querySelector(".btn-read-part1").addEventListener("click", (e) => {
+  const audio = new Audio("tts/part1.mp3");
   audio.pause(); // 일시 정지
   audio.currentTime = 0; // 재생 위치를 처음으로 설정
   audio.play(); // 처음부터 다시 재생됨
 });
 
-const btnKorean = document.querySelector(".btn-korean-part1");
-btnKorean.addEventListener("click", (e) => {
+document.querySelector(".btn-read-part2").addEventListener("click", (e) => {
+  const audio = new Audio("tts/part2.mp3");
+  audio.pause(); // 일시 정지
+  audio.currentTime = 0; // 재생 위치를 처음으로 설정
+  audio.play(); // 처음부터 다시 재생됨
+});
+
+document.querySelector(".btn-read-part3").addEventListener("click", (e) => {
+  const audio = new Audio("tts/part3.mp3");
+  audio.pause(); // 일시 정지
+  audio.currentTime = 0; // 재생 위치를 처음으로 설정
+  audio.play(); // 처음부터 다시 재생됨
+});
+
+//문장해석 버튼 클릭 이벤트
+document.querySelector(".btn-korean-part1").addEventListener("click", (e) => {
   const korean = document.querySelectorAll(".text-korean-part1");
+  if (korean.item(0).style.display == "block") {
+    for (let i = 0; i < korean.length; i++) {
+      korean.item(i).style.display = "none";
+    }
+  } else {
+    for (let i = 0; i < korean.length; i++) {
+      korean.item(i).style.display = "block";
+    }
+  }
+});
+
+document.querySelector(".btn-korean-part2").addEventListener("click", (e) => {
+  const korean = document.querySelectorAll(".text-korean-part2");
+  if (korean.item(0).style.display == "block") {
+    for (let i = 0; i < korean.length; i++) {
+      korean.item(i).style.display = "none";
+    }
+  } else {
+    for (let i = 0; i < korean.length; i++) {
+      korean.item(i).style.display = "block";
+    }
+  }
+});
+
+document.querySelector(".btn-korean-part3").addEventListener("click", (e) => {
+  const korean = document.querySelectorAll(".text-korean-part3");
   if (korean.item(0).style.display == "block") {
     for (let i = 0; i < korean.length; i++) {
       korean.item(i).style.display = "none";

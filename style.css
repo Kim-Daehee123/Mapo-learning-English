@@ -35,7 +35,6 @@ hr {
 }
 .image {
   max-width: 100%;
-  height: auto;
 }
 img {
   justify-content: center;
@@ -128,8 +127,7 @@ img {
 
 /* Slideshow container */
 .slideshow-container {
-  /* max-width: 1000px; */
-  width: 100%;
+  max-width: 1050px;
   position: relative;
   margin: auto;
 }
@@ -265,7 +263,10 @@ img {
   text-align: center;
 }
 .opacity-min {
-  opacity: 0.65;
+  opacity: 0.7;
+}
+.opacity-min-part3 {
+  opacity: 0.9;
 }
 .container:after,
 .container:before,
