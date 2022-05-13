@@ -51,13 +51,6 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 
-fetch("passage.json")
-  .then((response) => response.json())
-  .then((json) => {
-    const passage = document.getElementById("passage");
-    let resultHTML = "";
-  });
-
 //드래그한 텍스트 가져오는 함수
 function selectText() {
   let selectionText = ""; //마우스로 드래그한 글
@@ -101,8 +94,8 @@ document.onpointerup = function (e) {
               data.searchResultMap.searchResultListMap.MEANING.items[0];
             resultHTML += `<div><strong>${mapoWord}</strong>
             </div><hr/>
-            <div>${json.expEntry}</div><br/>
-            <div>1. ${json.meansCollector[0].means[0].value}</div><hr/>
+            <div>명사</div><br/>
+            <div>1. ${json.expEntry}${json.meansCollector[0].means[0].value}</div><hr/>
             <div class="source">출처: ${json.sourceDictnameKO}</div>`;
             word.style.top =
               ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
@@ -113,8 +106,6 @@ document.onpointerup = function (e) {
             return;
           } else if (mapoWord == "Mapodong-e") {
             let resultHTML = "";
-            let json =
-              data.searchResultMap.searchResultListMap.MEANING.items[0];
             resultHTML += `<div><strong>${mapoWord}</strong>
             </div><hr/>
             <div>명사</div><br/>
@@ -195,7 +186,6 @@ document.onpointerup = function (e) {
 };
 
 //음성 버튼 클릭 이벤트
-
 document.querySelector(".btn-read-part1").addEventListener("click", (e) => {
   const audio = new Audio("tts/part1.mp3");
   audio.pause(); // 일시 정지
@@ -256,3 +246,68 @@ document.querySelector(".btn-korean-part3").addEventListener("click", (e) => {
     }
   }
 });
+
+//랜덤 퀴즈 문제 출제
+fetch("/quizWord.json")
+  .then((response) => response.json())
+  .then((json) => {
+    let randomPartNum = Math.floor(Math.random() * json.quizWord.length);
+    console.log("randomPartNum", randomPartNum);
+    let randomWordNum = Math.floor(
+      Math.random() * json.quizWord[randomPartNum].word.length
+    );
+    console.log("randomWordNum", randomWordNum);
+    let randomWord = json.quizWord[randomPartNum].word[randomWordNum];
+    console.log("randomWord", randomWord);
+
+    let quizItem = document.querySelectorAll(
+      `.text-english-part${randomPartNum + 1}`
+    );
+    let quiz = document.getElementById("quiz");
+    let resultHTML = "";
+
+    if (randomPartNum + 1 === 3) {
+      console.log("AAAAAA");
+      resultHTML += `<h1>Quiz</h1><br />
+      <div class="col m6 padding-large">
+              <img src="images/part${
+                randomPartNum + 1
+              }.jpg" class="round image opacity-min-part3"  width="100%">
+             </div>
+             <div class="col m6 padding-large" id="quiz-passage">
+             ${quizItem.item(0).outerHTML}
+              <div/><br />`;
+      for (let i = 1; i < quizItem.length; i++) {
+        let passage = quizItem.item(i).outerText;
+        console.log("randomWord", randomWord);
+        let passageBlank = passage.replace(randomWord, "______");
+        console.log("111111", passageBlank);
+        resultHTML += ` 
+        <p class="text-english">${passageBlank}</p>
+        <br />`;
+      }
+    } else {
+      console.log("BBBBBBBB");
+      resultHTML += `<h1>Quiz</h1><br />
+        <div class="col m6 padding-large">
+                <img src="images/part${
+                  randomPartNum + 1
+                }.jpg" class="round image opacity-min"  width="100%">
+               </div>
+               <div class="col m6 padding-large" id="quiz-passage">
+               ${quizItem.item(0).outerHTML}
+                <div/><br />`;
+
+      for (let i = 1; i < quizItem.length; i++) {
+        let passage = quizItem.item(i).outerText;
+        console.log("randomWord", randomWord);
+        let passageBlank = passage.replace(randomWord, "______");
+        console.log("22222", passageBlank);
+        resultHTML += ` 
+          <p class="text-english">${passageBlank}</p>
+          <br />`;
+      }
+    }
+
+    quiz.innerHTML = resultHTML;
+  });
