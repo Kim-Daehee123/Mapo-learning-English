@@ -13,7 +13,14 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
+  font-family: "Times New Roman", Georgia, Serif;
   margin: 0;
+}
+h1,
+h2,
+h3 {
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
 }
 img {
   border-style: none;
@@ -118,6 +125,77 @@ a {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.parts-of-speech {
+  display: block;
+  font-weight: 400;
+  margin-bottom: 7px;
+  margin: 0 6px 13px -2px;
+}
+
+.parts-of-speech span {
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  color: #777;
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px 0;
+}
+
+.quiz-button-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
+    7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+.btn {
+  margin: 20px;
+  border: none;
+  color: #000;
+  font-size: 15px;
+}
+.btn:after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  direction: rtl;
+  z-index: -1;
+  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
+    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  color: #000;
+}
+.btn:hover:after {
+  left: auto;
+  right: 0;
+  width: 100%;
+}
+.btn:active {
+  top: 2px;
+}
+
+.btnDeco {
+  text-decoration: underline;
+}
 .mySlides {
   display: none;
 }
@@ -262,7 +340,8 @@ img {
 .center .bar-item {
   text-align: center;
 }
-.opacity-min {
+.opacity-min-part1,
+.opacity-min-part2 {
   opacity: 0.7;
 }
 .opacity-min-part3 {
