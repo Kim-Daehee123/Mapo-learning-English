@@ -6,27 +6,22 @@ rel2.selectNode(document.getElementById("cal2"));
 
 //슬라이드 초기값
 let slideIndex = 1;
-//시작시 실행되는 showSlides함수 slideIndex=1
 showSlides(slideIndex);
 
 //양 옆 화살표 온 클릭 함수
 function plusSlides(n) {
-  // n값에 slideIndex의 값을 더한 후 showSlides함수를 실행
   showSlides((slideIndex += n));
 }
 
 //버튼 클릭시 실행되는 함수
 function currentSlide(n) {
-  // n값에 slideIndex의 값을 대입한 후 showSlides함수를 실행
   showSlides((slideIndex = n));
 }
 
 //showSlides 실행 전달받은 n값
 function showSlides(n) {
   let i;
-  // 각 사진이 들어있는 div.mySlides 불러온다
   let slides = document.getElementsByClassName("mySlides");
-  // 각 이미지에 대한 버튼 클래스를 불러온다
   let dots = document.getElementsByClassName("dot");
 
   // n이 전달받은 n의 값이 길이보다 크면(3) 1로 초기화 즉 다시 첫번째 사진 인덱스로 만든다
@@ -37,17 +32,18 @@ function showSlides(n) {
   if (n < 1) {
     slideIndex = slides.length;
   }
+
   for (i = 0; i < slides.length; i++) {
     // 모든 사진을 none으로 처리
     slides[i].style.display = "none";
   }
+
   for (i = 0; i < dots.length; i++) {
     // dot 클래스가 갖고있는 모든 active 클래스를 지운다 ("" 로 치환)
     dots[i].className = dots[i].className.replace(" active", "");
   }
-  // slides[slideIndex - 1] if문으로 처리받은 slideIndex값에 -1을 해 slides 의 클래스를 block으로 만든다
+
   slides[slideIndex - 1].style.display = "block";
-  // 그에 맞는 dot 클래스를 가진 span 에 active 클래스를 추가한다
   dots[slideIndex - 1].className += " active";
 }
 
@@ -85,7 +81,7 @@ document.onpointerup = function (e) {
         if (data.searchResultMap) {
           let json = data.searchResultMap.searchResultListMap.WORD.items[0];
           let mapoWord = data.searchResultMap.searchResultListMap.WORD.query;
-          let r = sel.getRangeAt(0).getBoundingClientRect();
+          let range = sel.getRangeAt(0).getBoundingClientRect();
           let rb1 = rel1.getBoundingClientRect();
           let rb2 = rel2.getBoundingClientRect();
 
@@ -94,16 +90,17 @@ document.onpointerup = function (e) {
             let json =
               data.searchResultMap.searchResultListMap.MEANING.items[0];
 
-            resultHTML += `<div><strong>${mapoWord}</strong>
-            </div><hr/>
+            resultHTML += `
+            <div><strong>${mapoWord}</strong>
+            </div><hr>
             <strong class="parts-of-speech"><span>명사</span></strong>
-            <div>1. ${json.expEntry}${json.meansCollector[0].means[0].value}</div><hr/>
+            <div>1. ${json.expEntry}${json.meansCollector[0].means[0].value}</div><hr>
             <div class="source">출처: ${json.sourceDictnameKO}</div>`;
 
             word.style.top =
-              ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
+              ((range.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
             word.style.left =
-              ((r.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
+              ((range.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
             word.style.display = "block";
             word.innerHTML = resultHTML;
 
@@ -111,16 +108,17 @@ document.onpointerup = function (e) {
           } else if (mapoWord == "Mapodong-e") {
             let resultHTML = "";
 
-            resultHTML += `<div><strong>${mapoWord}</strong>
-            </div><hr/>
+            resultHTML += `
+            <div><strong>${mapoWord}</strong>
+            </div><hr>
             <strong class="parts-of-speech"><span>명사</span></strong>
-            <div>1. 마포구 상징 캐릭터</div><hr/>
+            <div>1. 마포구 상징 캐릭터</div><hr>
             <div class="source">출처: 마포구청 홈페이지</div>`;
 
             word.style.top =
-              ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
+              ((range.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
             word.style.left =
-              ((r.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
+              ((range.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
             word.style.display = "block";
             word.innerHTML = resultHTML;
 
@@ -133,13 +131,14 @@ document.onpointerup = function (e) {
               mapoWord == "Mapo" ||
               mapoWord == "Mapo's"
             ) {
-              resultHTML += `<div><strong>${mapoWord}</strong>
-              </div><hr/>
+              resultHTML += `
+              <div><strong>${mapoWord}</strong>
+              </div><hr>
               <strong class="parts-of-speech"><span>명사</span></strong>
-              <div>1. 마포(구)(서울특별시의 서부에 있는 구이다)</div><hr/>
+              <div>1. 마포(구)(서울특별시의 서부에 있는 구이다)</div><hr>
               <div class="source">출처: 동아출판 프라임 한영사전</div>`;
             } else {
-              resultHTML = `<div>${json.expEntry}</div><hr/>`;
+              resultHTML = `<div>${json.expEntry}</div><hr>`;
               for (let i = 0; i < json.meansCollector.length; i++) {
                 if (json.meansCollector[i].partOfSpeech) {
                   resultHTML += `<strong class="parts-of-speech"><span>${json.meansCollector[i].partOfSpeech}</span></strong>`;
@@ -149,17 +148,19 @@ document.onpointerup = function (e) {
                     json.meansCollector[i].means[j].exampleOri &&
                     checkEng(selectText())
                   ) {
-                    resultHTML += `<div>${j + 1}. ${
+                    resultHTML += `
+                    <div>${j + 1}. ${
                       json.meansCollector[i].means[j].value
                     }</div>
                     <div>
                     <div>${json.meansCollector[i].means[j].exampleOri}</div>
                     <div>${
                       json.meansCollector[i].means[j].exampleTrans
-                    }</div><br/>
+                    }</div><br>
                     </div>`;
                   } else if (json.meansCollector[i].means[j].exampleOri) {
-                    resultHTML += `<div>${j + 1}. ${
+                    resultHTML += `
+                    <div>${j + 1}. ${
                       json.meansCollector[i].means[j].value
                     }</div>
                     <div>
@@ -171,15 +172,15 @@ document.onpointerup = function (e) {
                     }</div>`;
                   }
                 }
-                resultHTML += "<hr/>";
+                resultHTML += "<hr>";
               }
               resultHTML += `<div class="source">출처: ${json.sourceDictnameKO}</div>`;
             }
 
             word.style.top =
-              ((r.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
+              ((range.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
             word.style.left =
-              ((r.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
+              ((range.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
             word.style.display = "block";
             word.innerHTML = resultHTML;
           }
@@ -305,61 +306,62 @@ fetch("/quizWord.json")
     console.log("findBtnIdx", findBtnIdx);
 
     resultHTML += `
-      <div class="col m6 padding-large">
-              <img src="images/part${
-                randomPartNum + 1
-              }.jpg" class="round image opacity-min-part${
+    <div class="col m6 padding-large">
+    <img src="images/part${
+      randomPartNum + 1
+    }.jpg" class="round image opacity-min-part${
       randomPartNum + 1
     }"  width="100%">
-             </div>
-             <div class="col m6 padding-large" id="quiz-passage">
-             ${quizItem.item(0).outerHTML}
-              <div/><br />`;
+    </div>
+    <div class="col m6 padding-large" id="quiz-passage">
+    ${quizItem.item(0).outerHTML}
+    <div/><br>`;
 
     for (let i = 1; i < quizItem.length; i++) {
       let passage = quizItem.item(i).outerText;
       let passageBlank = passage.replace(randomWord, "______");
 
       // console.log("111111", passageBlank);
-      resultHTML += ` 
-        <p class="text-english">${passageBlank}</p>
-        <br/>`;
+      resultHTML += `
+      <p class="text-english">${passageBlank}</p><br>`;
     }
 
     let j = 0;
     for (let i = 0; i < randomWordArray.length; i += 2) {
       resultHTML += `<div class="quiz-button-div">`;
+
       for (j; j < randomWordArray.length; j++) {
-        resultHTML += `<button class="custom-btn btn btn-${
-          1 + j
-        }" onclick="quizBtn(${1 + j})">${randomWordArray[j]}</button>`;
+        if (1 + j == findBtnIdx) {
+          resultHTML += `
+          <button class="custom-btn btn btn-answer btn-${
+            1 + j
+          }" onclick="quizBtn(${1 + j})">${randomWordArray[j]}</button>`;
+        } else {
+          resultHTML += `
+          <button class="custom-btn btn btn-${1 + j}" onclick="quizBtn(${
+            1 + j
+          })">${randomWordArray[j]}</button>`;
+        }
+
         if (j == 1) {
           j = randomWordArray.length;
         }
       }
+
       j = randomWordArray.length - 2;
       resultHTML += "</div>";
     }
 
-    // console.log("resultHTML", resultHTML);
     quiz.innerHTML = resultHTML;
   });
 
 //퀴즈 버튼 클릭 함수
 function quizBtn(buttonNum) {
   let buttonText = document.querySelector(`.btn-${buttonNum}`).innerText;
-  console.log(
-    "buttonNum, randomWord, buttonText",
-    buttonNum,
-    randomWord,
-    buttonText
-  );
 
   if (randomWord.trim() == buttonText.trim()) {
     console.log("정답");
 
-    // let a = (document.querySelector(`.btn-${findBtnIdx}`).style.color = "red");
-    // console.log("asdfece", document.querySelector(`.btn-${findBtnIdx}`));
     let passageBlank = resultHTML.replaceAll(
       "______",
       `<span class="btnDeco">${buttonText}</span><span>&nbsp</span>`

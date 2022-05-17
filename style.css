@@ -191,6 +191,26 @@ a {
 }
 .btn:active {
   top: 2px;
+  animation-duration: 1s;
+  animation-name: wrongAnswerButton;
+}
+
+.btn-answer:active {
+  top: 2px;
+  animation-duration: 1s;
+  animation-name: answerButton;
+}
+
+@keyframes wrongAnswerButton {
+  from {
+    background-color: red;
+  }
+}
+
+@keyframes answerButton {
+  from {
+    background-color: lightgreen;
+  }
 }
 
 .btnDeco {
