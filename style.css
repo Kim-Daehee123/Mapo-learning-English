@@ -1,4 +1,3 @@
-/* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 html {
   box-sizing: border-box;
 }
@@ -146,6 +145,10 @@ a {
   justify-content: space-around;
 }
 
+.quiz-restart-button {
+  display: none;
+}
+
 .custom-btn {
   width: 130px;
   height: 40px;
@@ -189,32 +192,28 @@ a {
   right: 0;
   width: 100%;
 }
-.btn:active {
+.btn-wrong:active {
   top: 2px;
   animation-duration: 1s;
   animation-name: wrongAnswerButton;
 }
 
-.btn-answer:active {
-  top: 2px;
-  animation-duration: 1s;
-  animation-name: answerButton;
-}
-
 @keyframes wrongAnswerButton {
   from {
-    background-color: red;
+    background-color: #f05650;
   }
 }
 
-@keyframes answerButton {
-  from {
-    background-color: lightgreen;
-  }
+.btn-answer {
+  background-color: lightgreen;
+}
+.btn-answer:active {
+  top: 2px;
 }
 
-.btnDeco {
+.textDeco {
   text-decoration: underline;
+  background: lightgreen;
 }
 .mySlides {
   display: none;

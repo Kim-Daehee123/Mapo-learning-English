@@ -321,7 +321,6 @@ fetch("/quizWord.json")
       let passage = quizItem.item(i).outerText;
       let passageBlank = passage.replace(randomWord, "______");
 
-      // console.log("111111", passageBlank);
       resultHTML += `
       <p class="text-english">${passageBlank}</p><br>`;
     }
@@ -333,14 +332,16 @@ fetch("/quizWord.json")
       for (j; j < randomWordArray.length; j++) {
         if (1 + j == findBtnIdx) {
           resultHTML += `
-          <button class="custom-btn btn btn-answer btn-${
-            1 + j
-          }" onclick="quizBtn(${1 + j})">${randomWordArray[j]}</button>`;
-        } else {
-          resultHTML += `
           <button class="custom-btn btn btn-${1 + j}" onclick="quizBtn(${
             1 + j
           })">${randomWordArray[j]}</button>`;
+        } else {
+          resultHTML += `
+          <button class="custom-btn btn btn-${
+            1 + j
+          } btn-wrong" onclick="quizBtn(${1 + j})">${
+            randomWordArray[j]
+          }</button>`;
         }
 
         if (j == 1) {
@@ -352,22 +353,44 @@ fetch("/quizWord.json")
       resultHTML += "</div>";
     }
 
+    resultHTML += `
+    <div class="quiz-button-div">
+    <button class="custom-btn btn btn-${
+      1 + randomWordArray.length
+    } quiz-restart-button" onclick="quizBtn(${
+      1 + randomWordArray.length
+    })">다시하기</button>
+    </div>`;
+
     quiz.innerHTML = resultHTML;
   });
 
-//퀴즈 버튼 클릭 함수
+//랜덤 퀴즈 버튼 클릭 함수
 function quizBtn(buttonNum) {
   let buttonText = document.querySelector(`.btn-${buttonNum}`).innerText;
 
-  if (randomWord.trim() == buttonText.trim()) {
+  if (buttonNum === randomWordArray.length + 1) {
+    console.log("다시하기");
+    location.reload();
+    return;
+  }
+
+  if (buttonNum === findBtnIdx) {
     console.log("정답");
 
-    let passageBlank = resultHTML.replaceAll(
-      "______",
-      `<span class="btnDeco">${buttonText}</span><span>&nbsp</span>`
-    );
+    let passageBlank = resultHTML
+      .replaceAll(
+        "______",
+        `<span class="textDeco">${buttonText}</span><span>&nbsp</span>`
+      )
+      .replace(`btn-${buttonNum}`, `btn-${buttonNum} btn-answer`);
+
     quiz.innerHTML = passageBlank;
+
+    document.querySelector(".quiz-restart-button").style.display = "block";
+
+    console.log(quiz);
   } else {
-    console.log("오류");
+    console.log("오답");
   }
 }
