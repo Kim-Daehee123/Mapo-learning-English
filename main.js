@@ -74,7 +74,7 @@ document.onpointerup = function (e) {
   if (!selectText().isCollapsed) {
     let word = document.getElementById("word");
     fetch(
-      `https://my-simple-mapo-proxy.herokuapp.com/https://dict.naver.com/api3/enko/search?query=${selectText()}`
+      `http://1.224.107.229:8080/https://dict.naver.com/api3/enko/search?query=${selectText()}`
     )
       .then((response) => response.json())
       .then((data) => {
