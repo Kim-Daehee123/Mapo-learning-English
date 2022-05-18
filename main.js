@@ -194,26 +194,14 @@ document.onpointerup = function (e) {
 };
 
 //음성 버튼 클릭 이벤트
-const audio1 = new Audio("tts/part1.mp3");
-document.querySelector(".btn-read-part1").addEventListener("click", (e) => {
-  audio1.pause(); // 일시 정지
-  audio1.currentTime = 0; // 재생 위치를 처음으로 설정
-  audio1.play(); // 처음부터 다시 재생됨
-});
+let audio = new Audio();
 
-const audio2 = new Audio("tts/part2.mp3");
-document.querySelector(".btn-read-part2").addEventListener("click", (e) => {
-  audio2.pause(); // 일시 정지
-  audio2.currentTime = 0; // 재생 위치를 처음으로 설정
-  audio2.play(); // 처음부터 다시 재생됨
-});
-
-const audio3 = new Audio("tts/part3.mp3");
-document.querySelector(".btn-read-part3").addEventListener("click", (e) => {
-  audio3.pause(); // 일시 정지
-  audio3.currentTime = 0; // 재생 위치를 처음으로 설정
-  audio3.play(); // 처음부터 다시 재생됨
-});
+function readBtn(readNum) {
+  audio.src = `tts/part${readNum}.mp3`;
+  audio.pause(); // 일시 정지
+  audio.currentTime = 0; // 재생 위치를 처음으로 설정
+  audio.play(); // 처음부터 다시 재생됨
+}
 
 //문장해석 버튼 클릭 이벤트
 function koreanBtn(partNum) {
@@ -364,8 +352,6 @@ function quizBtn(buttonNum) {
     quiz.innerHTML = passageBlank;
 
     document.querySelector(".quiz-restart-button").style.display = "block";
-
-    console.log(quiz);
   } else {
     console.log("오답");
   }
