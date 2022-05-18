@@ -1,9 +1,3 @@
-let sel = window.getSelection();
-let rel1 = document.createRange();
-rel1.selectNode(document.getElementById("cal1"));
-let rel2 = document.createRange();
-rel2.selectNode(document.getElementById("cal2"));
-
 //슬라이드 초기값
 let slideIndex = 1;
 showSlides(slideIndex);
@@ -69,6 +63,12 @@ function checkEng(str) {
     return false;
   }
 }
+
+let sel = window.getSelection();
+let rel1 = document.createRange();
+rel1.selectNode(document.getElementById("cal1"));
+let rel2 = document.createRange();
+rel2.selectNode(document.getElementById("cal2"));
 
 //단어 해석 함수
 document.onpointerup = function (e) {
@@ -236,7 +236,8 @@ function shuffle(array) {
 let randomWord = "";
 let resultHTML = "";
 let findBtnIdx = 0;
-fetch("/quizWord.json")
+
+fetch("json/quizWord.json")
   .then((response) => response.json())
   .then((json) => {
     let randomPartNum = Math.floor(Math.random() * json.quizWord.length);
@@ -270,12 +271,17 @@ fetch("/quizWord.json")
     console.log("findBtnIdx", findBtnIdx);
 
     resultHTML += `
-    <div class="col m6 padding-large">
+    <div class="col m6 padding-large img-animation">
     <img src="images/part${
       randomPartNum + 1
-    }.svg" class="round image opacity-min-part${
+    }-front.svg" class="round image opacity-min-part${
       randomPartNum + 1
-    }"  width="100%">
+    }-front"  width="100%">
+    <img src="images/part${
+      randomPartNum + 1
+    }-back.svg" class="round image opacity-min-part${
+      randomPartNum + 1
+    }-back"  width="100%">
     </div>
     <div class="col m6 padding-large" id="quiz-passage">
     ${quizItem.item(0).outerHTML}

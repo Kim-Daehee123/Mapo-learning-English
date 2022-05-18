@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mapo Learning English</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <script
     defer src="https://kit.fontawesome.com/d1bdfde675.js"
     crossorigin="anonymous"
   ></script>
-  <script defer src="main.js"></script>
+  <script defer src="js/main.js"></script>
   </head>
 
   <body id="home">
@@ -63,7 +63,7 @@
 
       <!-- Passage Section -->
       <!-- Part1 Passage-->
-      <div class="row padding-64">
+      <div class="row padding-64" id="passage">
          <div class="col l6 padding-large">
           <h1>Passage</h1><br>
           <button class="btn-read btn-read-part1" onclick="readBtn(1)"><i class="fa-solid fa-volume-high"></i></i></button>
@@ -86,10 +86,15 @@
           </p><br>
         </div>
 
-        <div class="col l6 padding-large">
+        <div class="col l6 padding-large img-animation">
           <img
-            src="images/part1.svg"
-            class="round image opacity-min-part1"
+            src="images/part1-front.svg"
+            class="round image opacity-min-part1-front"
+            style="width: 100%"
+          />
+          <img
+            src="images/part1-back.svg"
+            class="round image opacity-min-part1-back"
             style="width: 100%"
           />
         </div>
@@ -97,8 +102,9 @@
 
       <!-- Part2 Passage-->
       <div class="row padding-64">
-        <div class="col m6 padding-large">
-         <img src="images/part2.svg" class="round image opacity-min-part2"  width="100%">
+        <div class="col m6 padding-large img-animation">
+         <img src="images/part2-front.svg" class="round image opacity-min-part2-front" width="100%">
+         <img src="images/part2-back.svg" class="round image opacity-min-part2-back" width="100%">
         </div>
     
         <div class="col m6 padding-large">
@@ -158,10 +164,15 @@
           </p><br>
         </div>
 
-        <div class="col l6 padding-large">
+        <div class="col l6 padding-large img-animation">
           <img
-            src="images/part3.svg"
-            class="round image opacity-min-part3"
+            src="images/part3-front.svg"
+            class="round image opacity-min-part3-front"
+            style="width: 100%"
+          />
+          <img
+            src="images/part3-back.svg"
+            class="round image opacity-min-part3-back"
             style="width: 100%"
           />
         </div>
@@ -182,7 +193,7 @@
     <footer class="center light-grey padding-32">
       <div class="footer">
         <div class="footer-logo">
-          <img src="images/mapo_logo_footer.svg" width="100px" />
+          <img src="images/footer-logo.svg" width="100px" />
           <h4>Learning English</h4>
         </div>
         <div class="footer-text">
