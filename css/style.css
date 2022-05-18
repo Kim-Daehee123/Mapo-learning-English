@@ -219,6 +219,11 @@ a {
 .mySlides {
   display: none;
 }
+.mySlides img {
+  max-height: 351px;
+  object-fit: cover;
+  opacity: 0.9;
+}
 img {
   vertical-align: middle;
 }

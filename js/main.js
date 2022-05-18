@@ -2,6 +2,12 @@
 let slideIndex = 1;
 showSlides(slideIndex);
 
+//슬라이드 자동 이동 함수
+setInterval(() => {
+  slideIndex++;
+  showSlides(slideIndex);
+}, 5000);
+
 //양 옆 화살표 온 클릭 함수
 function plusSlides(n) {
   showSlides((slideIndex += n));
