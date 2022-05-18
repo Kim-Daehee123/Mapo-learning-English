@@ -17,7 +17,8 @@ body {
 }
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Playfair Display";
   letter-spacing: 5px;
 }
@@ -222,6 +223,18 @@ img {
   vertical-align: middle;
 }
 
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+}
+.footer-logo {
+  margin-top: 17px;
+}
+.footer-logo h4 {
+  margin-top: 10px;
+}
+
 /* Slideshow container */
 .slideshow-container {
   max-width: 1050px;
@@ -364,7 +377,7 @@ img {
   opacity: 0.7;
 }
 .opacity-min-part3 {
-  opacity: 0.9;
+  opacity: 0.75;
 }
 .container:after,
 .container:before,

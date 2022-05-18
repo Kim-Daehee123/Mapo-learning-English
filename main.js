@@ -28,18 +28,19 @@ function showSlides(n) {
   if (n > slides.length) {
     slideIndex = 1;
   }
+
   // n이 1보다 작을 경우 mySlide 의 길이를 인덱스로 설정
   if (n < 1) {
     slideIndex = slides.length;
   }
 
+  // 모든 사진을 none으로 처리
   for (i = 0; i < slides.length; i++) {
-    // 모든 사진을 none으로 처리
     slides[i].style.display = "none";
   }
 
+  // dot 클래스가 갖고있는 모든 active 클래스를 지운다 ("" 로 치환)
   for (i = 0; i < dots.length; i++) {
-    // dot 클래스가 갖고있는 모든 active 클래스를 지운다 ("" 로 치환)
     dots[i].className = dots[i].className.replace(" active", "");
   }
 
@@ -309,7 +310,7 @@ fetch("/quizWord.json")
     <div class="col m6 padding-large">
     <img src="images/part${
       randomPartNum + 1
-    }.jpg" class="round image opacity-min-part${
+    }.svg" class="round image opacity-min-part${
       randomPartNum + 1
     }"  width="100%">
     </div>
