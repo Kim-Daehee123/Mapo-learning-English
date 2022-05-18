@@ -216,21 +216,9 @@ document.querySelector(".btn-read-part3").addEventListener("click", (e) => {
 });
 
 //문장해석 버튼 클릭 이벤트
-document.querySelector(".btn-korean-part1").addEventListener("click", (e) => {
-  const korean = document.querySelectorAll(".text-korean-part1");
-  if (korean.item(0).style.display == "block") {
-    for (let i = 0; i < korean.length; i++) {
-      korean.item(i).style.display = "none";
-    }
-  } else {
-    for (let i = 0; i < korean.length; i++) {
-      korean.item(i).style.display = "block";
-    }
-  }
-});
+function koreanBtn(partNum) {
+  const korean = document.querySelectorAll(`.text-korean-part${partNum}`);
 
-document.querySelector(".btn-korean-part2").addEventListener("click", (e) => {
-  const korean = document.querySelectorAll(".text-korean-part2");
   if (korean.item(0).style.display == "block") {
     for (let i = 0; i < korean.length; i++) {
       korean.item(i).style.display = "none";
@@ -240,20 +228,7 @@ document.querySelector(".btn-korean-part2").addEventListener("click", (e) => {
       korean.item(i).style.display = "block";
     }
   }
-});
-
-document.querySelector(".btn-korean-part3").addEventListener("click", (e) => {
-  const korean = document.querySelectorAll(".text-korean-part3");
-  if (korean.item(0).style.display == "block") {
-    for (let i = 0; i < korean.length; i++) {
-      korean.item(i).style.display = "none";
-    }
-  } else {
-    for (let i = 0; i < korean.length; i++) {
-      korean.item(i).style.display = "block";
-    }
-  }
-});
+}
 
 //랜덤 버튼 단어 생성
 let randomWordArray = [];
