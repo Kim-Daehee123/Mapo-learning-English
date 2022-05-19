@@ -2,20 +2,20 @@
 let slideIndex = 1;
 showSlides(slideIndex);
 
-//슬라이드 자동 이동 함수
-setInterval(() => {
-  slideIndex++;
-  showSlides(slideIndex);
-}, 5000);
-
 //양 옆 화살표 온 클릭 함수
 function plusSlides(n) {
   showSlides((slideIndex += n));
+
+  target.item(slideIndex - 1).textContent = "";
+  dynamic(slideString(slideIndex - 1), slideIndex - 1);
 }
 
 //버튼 클릭시 실행되는 함수
 function currentSlide(n) {
   showSlides((slideIndex = n));
+
+  target.item(slideIndex - 1).textContent = "";
+  dynamic(slideString(slideIndex - 1), slideIndex - 1);
 }
 
 //showSlides 실행 전달받은 n값
@@ -48,6 +48,43 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 
+let target = document.querySelectorAll(".text");
+dynamic(slideString(slideIndex - 1), 0);
+
+//슬라이드 자동 이동 함수
+setInterval(() => {
+  slideIndex++;
+  showSlides(slideIndex);
+
+  target.item(slideIndex - 1).textContent = "";
+  dynamic(slideString(slideIndex - 1), slideIndex - 1);
+}, 5000);
+
+//해당 슬라이드 텍스트를 한문자씩 split하는 함수
+function slideString(num) {
+  let stringArr = ["Sky Park", "World Cup Park", "Mangwon Hangang Park"];
+  let selectString = stringArr[num];
+  let selectStringArr = selectString.split("");
+
+  return selectStringArr;
+}
+
+// 한글자씩 테스트 출력 함수
+function dynamic(arr, num) {
+  if (arr.length > 0) {
+    target.item(num).textContent += arr.shift();
+    setTimeout(() => {
+      dynamic(arr, num);
+    }, 100);
+  }
+}
+
+//단어 해석 기능 설명 함수
+let explanation = document.querySelector(".explanation");
+setTimeout(() => {
+  explanation.style.display = "none";
+}, 5000);
+
 //드래그한 텍스트 가져오는 함수
 function selectText() {
   let selectionText = ""; //마우스로 드래그한 글
@@ -62,7 +99,7 @@ function selectText() {
 
 //영어 단어 체크 함수
 function checkEng(str) {
-  const regExp = /[a-zA-Z]/g; // 영어
+  const regExp = /[a-zA-Z]/g; // 영어 정규표현식
   if (regExp.test(str)) {
     return true;
   } else {
@@ -77,7 +114,7 @@ let rel2 = document.createRange();
 rel2.selectNode(document.getElementById("cal2"));
 
 //단어 해석 함수
-document.onpointerup = function (e) {
+document.onpointerup = function () {
   if (!selectText().isCollapsed) {
     let word = document.getElementById("word");
     fetch(
@@ -247,10 +284,8 @@ fetch("json/quizWord.json")
   .then((response) => response.json())
   .then((json) => {
     let randomPartNum = Math.floor(Math.random() * json.quizWord.length);
-    console.log("randomPartNum", randomPartNum);
     let quizWordLength = json.quizWord[randomPartNum].word.length;
     let randomWordNum = Math.floor(Math.random() * quizWordLength);
-    console.log("randomWordNum", randomWordNum);
     randomWord = json.quizWord[randomPartNum].word[randomWordNum];
     console.log("randomWord", randomWord);
 
