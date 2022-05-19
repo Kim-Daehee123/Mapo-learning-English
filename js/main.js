@@ -320,7 +320,7 @@ fetch("json/quizWord.json")
     }-front"  width="100%">
     <img src="images/part${
       randomPartNum + 1
-    }-back.svg" class="round image opacity-min-part${
+    }-back.svg" class="padding-large round image opacity-min-part${
       randomPartNum + 1
     }-back"  width="100%">
     </div>

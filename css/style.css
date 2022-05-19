@@ -42,6 +42,7 @@ hr {
 }
 .image {
   max-width: 100%;
+  max-height: 361px;
 }
 img {
   justify-content: center;
@@ -393,11 +394,13 @@ img {
   opacity: 0;
   transition: opacity 1s linear;
 }
+
 .img-animation:hover .opacity-min-part1-front,
 .img-animation:hover .opacity-min-part2-front,
 .img-animation:hover .opacity-min-part3-front {
   opacity: 0;
 }
+
 .img-animation:hover .opacity-min-part1-back,
 .img-animation:hover .opacity-min-part2-back,
 .img-animation:hover .opacity-min-part3-back {
