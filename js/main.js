@@ -1,3 +1,7 @@
+/**
+ * 슬라이드 박스
+ */
+
 //슬라이드 초기값
 let slideIndex = 1;
 showSlides(slideIndex);
@@ -7,7 +11,7 @@ function plusSlides(n) {
   showSlides((slideIndex += n));
 
   target.item(slideIndex - 1).textContent = "";
-  dynamic(slideString(slideIndex - 1), slideIndex - 1);
+  dynamicText(slideString(slideIndex - 1), slideIndex - 1);
 }
 
 //버튼 클릭시 실행되는 함수
@@ -15,7 +19,7 @@ function currentSlide(n) {
   showSlides((slideIndex = n));
 
   target.item(slideIndex - 1).textContent = "";
-  dynamic(slideString(slideIndex - 1), slideIndex - 1);
+  dynamicText(slideString(slideIndex - 1), slideIndex - 1);
 }
 
 //showSlides 실행 전달받은 n값
@@ -48,8 +52,11 @@ function showSlides(n) {
   dots[slideIndex - 1].className += " active";
 }
 
+//모든 슬라이드 텍스트
 let target = document.querySelectorAll(".text");
-dynamic(slideString(slideIndex - 1), 0);
+
+//첫번째 슬라이드 텍스트 dynamicText 함수 실행
+dynamicText(slideString(slideIndex - 1), 0);
 
 //슬라이드 자동 이동 함수
 setInterval(() => {
@@ -57,7 +64,7 @@ setInterval(() => {
   showSlides(slideIndex);
 
   target.item(slideIndex - 1).textContent = "";
-  dynamic(slideString(slideIndex - 1), slideIndex - 1);
+  dynamicText(slideString(slideIndex - 1), slideIndex - 1);
 }, 5000);
 
 //해당 슬라이드 텍스트를 한문자씩 split하는 함수
@@ -69,21 +76,59 @@ function slideString(num) {
   return selectStringArr;
 }
 
-// 한글자씩 테스트 출력 함수
-function dynamic(arr, num) {
+// 한글자씩 슬라이드 텍스트 출력 함수
+function dynamicText(arr, num) {
   if (arr.length > 0) {
     target.item(num).textContent += arr.shift();
     setTimeout(() => {
-      dynamic(arr, num);
+      dynamicText(arr, num);
     }, 100);
   }
 }
 
-//단어 해석 기능 설명 함수
-let explanation = document.querySelector(".explanation");
+/**
+ * 단어 해석 기능 사용 설명
+ */
+
+const explanation = document.querySelector(".explanation");
+
+//모든 텍스트 문자 span tag 안으로 치환
+explanation.innerHTML = explanation.textContent.replace(
+  /\S/g,
+  "<span>$&</span>"
+); //문자열 내의 모든 문자 치환 정규식
+
+//explanation 모든 span
+const explanationText = document.querySelectorAll(".explanation span");
+
+//텍스트 순서대로 active 추가 함수
+function dynamicExplanation(i) {
+  let num = i;
+  if (
+    num < explanationText.length &&
+    explanationText[num].classList.length == 0
+  ) {
+    explanationText[num].classList.add("active");
+    num++;
+    setTimeout(() => {
+      dynamicExplanation(num);
+    }, 50);
+  }
+}
+
+//5초뒤 dynamicExplanation 함수 실행
+setTimeout(() => {
+  dynamicExplanation(0);
+}, 5000);
+
+//7.5초뒤 explanation태그 none
 setTimeout(() => {
   explanation.style.display = "none";
-}, 5000);
+}, 7500);
+
+/**
+ * 단어 해석 박스
+ */
 
 //드래그한 텍스트 가져오는 함수
 function selectText() {
@@ -107,10 +152,10 @@ function checkEng(str) {
   }
 }
 
-let sel = window.getSelection();
-let rel1 = document.createRange();
+let sel = window.getSelection(); //선택된 텍스트의 범위를 나타냄
+let rel1 = document.createRange(); //새 Range 객체를 리턴
 rel1.selectNode(document.getElementById("cal1"));
-let rel2 = document.createRange();
+let rel2 = document.createRange(); //새 Range 객체를 리턴
 rel2.selectNode(document.getElementById("cal2"));
 
 //단어 해석 함수
@@ -129,6 +174,7 @@ document.onpointerup = function () {
           let rb1 = rel1.getBoundingClientRect();
           let rb2 = rel2.getBoundingClientRect();
 
+          //단어가 Mapodong 경우
           if (mapoWord == "Mapodong") {
             let resultHTML = "";
             let json =
@@ -149,7 +195,10 @@ document.onpointerup = function () {
             word.innerHTML = resultHTML;
 
             return;
-          } else if (mapoWord == "Mapodong-e") {
+          }
+
+          //단어가 Mapodong-e 경우
+          else if (mapoWord == "Mapodong-e") {
             let resultHTML = "";
 
             resultHTML += `
@@ -221,12 +270,14 @@ document.onpointerup = function () {
               resultHTML += `<div class="source">출처: ${json.sourceDictnameKO}</div>`;
             }
 
+            //단어 해석 박스 위치 지정
             word.style.top =
               ((range.bottom - rb2.top) * 100) / (rb1.top - rb2.top) + "px";
             word.style.left =
               ((range.left - rb2.left) * 100) / (rb1.left - rb2.left) + "px";
-            word.style.display = "block";
+
             word.innerHTML = resultHTML;
+            word.style.display = "block"; //단어 해석 박스 생성
           }
         }
       });
@@ -235,6 +286,10 @@ document.onpointerup = function () {
     word.innerHTML = "";
   }
 };
+
+/**
+ * 음성 버튼 박스
+ */
 
 //음성 버튼 클릭 이벤트
 let audio = new Audio();
@@ -246,20 +301,30 @@ function readBtn(readNum) {
   audio.play(); // 처음부터 다시 재생됨
 }
 
+/**
+ * 문장해석 버튼 박스
+ */
+
 //문장해석 버튼 클릭 이벤트
 function koreanBtn(partNum) {
   const korean = document.querySelectorAll(`.text-korean-part${partNum}`);
 
+  //현재 지문 해석이 있을 경우
   if (korean.item(0).style.display == "block") {
     for (let i = 0; i < korean.length; i++) {
       korean.item(i).style.display = "none";
     }
   } else {
+    //현재 지문 해석이 없을경우
     for (let i = 0; i < korean.length; i++) {
       korean.item(i).style.display = "block";
     }
   }
 }
+
+/**
+ * 랜덤 퀴즈 박스
+ */
 
 //랜덤 버튼 단어 생성
 let randomWordArray = [];
@@ -283,9 +348,9 @@ let findBtnIdx = 0;
 fetch("json/quizWord.json")
   .then((response) => response.json())
   .then((json) => {
-    let randomPartNum = Math.floor(Math.random() * json.quizWord.length);
-    let quizWordLength = json.quizWord[randomPartNum].word.length;
-    let randomWordNum = Math.floor(Math.random() * quizWordLength);
+    let randomPartNum = Math.floor(Math.random() * json.quizWord.length); //랜덤 지문 선택
+    let quizWordLength = json.quizWord[randomPartNum].word.length; //선택된 지문 총 단어 갯수
+    let randomWordNum = Math.floor(Math.random() * quizWordLength); //선택된 지문 단어 랜덤 선택
     randomWord = json.quizWord[randomPartNum].word[randomWordNum];
     console.log("randomWord", randomWord);
 
@@ -296,19 +361,22 @@ fetch("json/quizWord.json")
 
     randomWordArray.push(randomWord);
 
+    //정답 단어를 포함한 총 4개 단어 배열
     while (randomWordArray.length < 4) {
       let randomNum = randomButton(quizWordLength);
       let jsonRandomWord = json.quizWord[randomPartNum].word[randomNum];
 
+      //배열 안에 해당 단어가 없을경우 push
       if (!randomWordArray.includes(jsonRandomWord)) {
         randomWordArray.push(jsonRandomWord);
       }
     }
+
     console.log("randomWordArray", randomWordArray);
-    shuffle(randomWordArray);
+    shuffle(randomWordArray); //버튼 배열 단어 랜덤 정렬
     console.log("randomWordArray", randomWordArray);
 
-    findBtnIdx = randomWordArray.indexOf(randomWord) + 1;
+    findBtnIdx = randomWordArray.indexOf(randomWord) + 1; //정답 index 변수
     console.log("findBtnIdx", findBtnIdx);
 
     resultHTML += `
@@ -328,6 +396,7 @@ fetch("json/quizWord.json")
     ${quizItem.item(0).outerHTML}
     <div/><br>`;
 
+    //퀴즈 지문 빈칸 생성
     for (let i = 1; i < quizItem.length; i++) {
       let passage = quizItem.item(i).outerText;
       let passageBlank = passage.replace(randomWord, "______");
@@ -336,6 +405,7 @@ fetch("json/quizWord.json")
       <p class="text-english">${passageBlank}</p><br>`;
     }
 
+    //퀴즈 버튼 생성
     let j = 0;
     for (let i = 0; i < randomWordArray.length; i += 2) {
       resultHTML += `<div class="quiz-button-div">`;
@@ -380,15 +450,18 @@ fetch("json/quizWord.json")
 function quizBtn(buttonNum) {
   let buttonText = document.querySelector(`.btn-${buttonNum}`).innerText;
 
+  //다시하기 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
     console.log("다시하기");
     location.reload();
     return;
   }
 
+  //정답 버튼 이벤트
   if (buttonNum === findBtnIdx) {
     console.log("정답");
 
+    //지문 빈칸을 정답 단어로 치환
     let passageBlank = resultHTML
       .replaceAll(
         "______",
@@ -398,6 +471,7 @@ function quizBtn(buttonNum) {
 
     quiz.innerHTML = passageBlank;
 
+    //다시하기 버튼 생성
     document.querySelector(".quiz-restart-button").style.display = "block";
   } else {
     console.log("오답");
