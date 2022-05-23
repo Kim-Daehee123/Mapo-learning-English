@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 *,
 *:before,
@@ -63,6 +64,7 @@ a {
 .btn-tooltip {
   display: flex;
   justify-content: flex-end;
+  -webkit-user-drag: none;
 }
 
 .btn-read {

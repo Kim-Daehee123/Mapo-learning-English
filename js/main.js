@@ -343,6 +343,7 @@ fetch("json/quizWord.json")
     console.log("findBtnIdx", findBtnIdx);
 
     resultHTML += `
+    <h1>Random Quiz</h1><br>
     <div class="col m6 padding-large img-animation">
     <img src="images/part${
       randomPartNum + 1
@@ -425,7 +426,7 @@ function quizBtn(buttonNum) {
   //다시하기 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
     console.log("다시하기");
-    location.reload();
+    location.reload(true);
     return;
   }
 
