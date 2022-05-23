@@ -64,10 +64,17 @@
         <h4 class="explanation">단어의 뜻을 알고 싶으면 드래그 또는 더블클릭을 해주세요~</h4>
          <div class="col l6 padding-large">
           <h1>Passage</h1><br>
-          <button class="btn-read btn-read-part1" onclick="readBtn(1)"><i class="fa-solid fa-volume-high"></i></i></button>
-          <button class="btn-korean btn-korean-part1" onclick="koreanBtn(1)"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <div class="btn-tooltip">
+            <button class="btn-korean btn-korean-part1" onclick="koreanBtn(1)"><i class="fa-solid fa-arrow-pointer"></i></i>
+              <span class="tooltiptext">지문 해석</span>
+            </button>
+            <button class="btn-read btn-read-part1" onclick="readBtn(1)"><i class="fa-solid fa-volume-high"></i></i>
+              <span class="tooltiptext">음성 버튼</span>
+            </button>
+          </div>
+        
           <h1 class="center text-english-part1">Magnolia</h1>
-          <h1 class="center text-korean text-korean-part1 text-title-korean">목련</h1><br>
+          <h1 class="center text-korean text-title-korean text-korean-part1">목련</h1><br>
           <p class="text-english text-english-part1">Magnolia, a flower symbolizing Mapo,</p>
           <p class="text-korean text-korean-part1">마포를 상징하는 꽃 목련은</p><br>
           <p class="text-english text-english-part1">
@@ -106,10 +113,16 @@
         </div>
     
         <div class="col m6 padding-large">
-          <button class="btn-read btn-read-part2" onclick="readBtn(2)"><i class="fa-solid fa-volume-high"></i></i></button>
-          <button class="btn-korean btn-korean-part2" onclick="koreanBtn(2)"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <div class="btn-tooltip">
+            <button class="btn-korean btn-korean-part2" onclick="koreanBtn(2)"><i class="fa-solid fa-arrow-pointer"></i></i>
+              <span class="tooltiptext">지문 해석</span>
+            </button>
+            <button class="btn-read btn-read-part2" onclick="readBtn(2)"><i class="fa-solid fa-volume-high"></i></i>
+              <span class="tooltiptext">음성 버튼</span>
+            </button>
+          </div>
           <h1 class="center text-english-part2">Mallard</h1>
-          <h1 class="center text-korean text-korean-part2 text-title-korean">청둥오리</h1><br>
+          <h1 class="center text-korean text-title-korean text-korean-part2">청둥오리</h1><br>
           <p class="text-english text-english-part2">The mallard duck, a bird symbolizing Mapo,</p>
           <p class="text-korean text-korean-part2">마포를 상징하는 새, 청둥오리는</p><br>
           <p class="text-english text-english-part2">
@@ -130,10 +143,16 @@
       <!-- Part3 Passage-->
       <div class="row padding-64">
         <div class="col l6 padding-large">
-          <button class="btn-read btn-read-part3" onclick="readBtn(3)"><i class="fa-solid fa-volume-high"></i></i></button>
-          <button class="btn-korean btn-korean-part3" onclick="koreanBtn(3)"><i class="fa-solid fa-arrow-pointer"></i></i></button>
+          <div class="btn-tooltip">
+            <button class="btn-korean btn-korean-part3" onclick="koreanBtn(3)"><i class="fa-solid fa-arrow-pointer"></i></i>
+              <span class="tooltiptext">지문 해석</span>
+            </button>
+            <button class="btn-read btn-read-part3" onclick="readBtn(3)"><i class="fa-solid fa-volume-high"></i></i>
+              <span class="tooltiptext">음성 버튼</span>
+            </button>
+          </div>
           <h1 class="center text-english-part3">Mapodong-e</h1>
-          <h1 class="center text-korean text-korean-part1 text-title-korean">마포동이</h1><br>
+          <h1 class="center text-korean text-title-korean text-korean-part3">마포동이</h1><br>
           <p class="text-english text-english-part3">I am Mapo-dong who was born on July 1, 2004 in Mapo-gu, which is rich and worth living.</p>
           <p class="text-korean text-korean-part3">풍요롭고 살맛나는 마포구에서 2004.7.1 태어난 마포동이입니다.</p><br>
           <p class="text-english text-english-part3">
@@ -197,7 +216,7 @@
         <div class="footer-text">
           <p>03965 서울특별시 마포구 성산로4길 53(성산동)<br>
             TEL) 02-3153-8555<br>
-            created by <b>KimDaeHee</b>
+            created by <a href="https://github.com/Kim-Daehee123" target="_blank"><b> KimDaeHee</b></a>
           </p>
         </div>
       </div>

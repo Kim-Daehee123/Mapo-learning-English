@@ -87,46 +87,6 @@ function dynamicText(arr, num) {
 }
 
 /**
- * 단어 해석 기능 사용 설명
- */
-
-const explanation = document.querySelector(".explanation");
-
-//모든 텍스트 문자 span tag 안으로 치환
-explanation.innerHTML = explanation.textContent.replace(
-  /\S/g,
-  "<span>$&</span>"
-); //문자열 내의 모든 문자 치환 정규식
-
-//explanation 모든 span
-const explanationText = document.querySelectorAll(".explanation span");
-
-//텍스트 순서대로 active 추가 함수
-function dynamicExplanation(i) {
-  let num = i;
-  if (
-    num < explanationText.length &&
-    explanationText[num].classList.length == 0
-  ) {
-    explanationText[num].classList.add("active");
-    num++;
-    setTimeout(() => {
-      dynamicExplanation(num);
-    }, 50);
-  }
-}
-
-//5초뒤 dynamicExplanation 함수 실행
-setTimeout(() => {
-  dynamicExplanation(0);
-}, 5000);
-
-//7.5초뒤 explanation태그 none
-setTimeout(() => {
-  explanation.style.display = "none";
-}, 7500);
-
-/**
  * 단어 해석 박스
  */
 
@@ -247,9 +207,7 @@ document.onpointerup = function () {
                     }</div>
                     <div>
                     <div>${json.meansCollector[i].means[j].exampleOri}</div>
-                    <div>${
-                      json.meansCollector[i].means[j].exampleTrans
-                    }</div><br>
+                    <div>${json.meansCollector[i].means[j].exampleTrans}</div>
                     </div>`;
                   } else if (json.meansCollector[i].means[j].exampleOri) {
                     resultHTML += `
@@ -344,11 +302,12 @@ function shuffle(array) {
 let randomWord = "";
 let resultHTML = "";
 let findBtnIdx = 0;
+let randomPartNum = 0;
 
 fetch("json/quizWord.json")
   .then((response) => response.json())
   .then((json) => {
-    let randomPartNum = Math.floor(Math.random() * json.quizWord.length); //랜덤 지문 선택
+    randomPartNum = Math.floor(Math.random() * json.quizWord.length); //랜덤 지문 선택
     let quizWordLength = json.quizWord[randomPartNum].word.length; //선택된 지문 총 단어 갯수
     let randomWordNum = Math.floor(Math.random() * quizWordLength); //선택된 지문 단어 랜덤 선택
     randomWord = json.quizWord[randomPartNum].word[randomWordNum];
@@ -357,6 +316,10 @@ fetch("json/quizWord.json")
     let quizItem = document.querySelectorAll(
       `.text-english-part${randomPartNum + 1}`
     );
+    let quizItemKorean = document.querySelectorAll(
+      `.text-korean-part${randomPartNum + 1}`
+    );
+    console.log("quizItemKorean", quizItemKorean);
     let quiz = document.getElementById("quiz");
 
     randomWordArray.push(randomWord);
@@ -394,16 +357,24 @@ fetch("json/quizWord.json")
     </div>
     <div class="col m6 padding-large" id="quiz-passage">
     ${quizItem.item(0).outerHTML}
+    ${quizItemKorean.item(0).outerHTML}
     <div/><br>`;
 
     //퀴즈 지문 빈칸 생성
     for (let i = 1; i < quizItem.length; i++) {
       let passage = quizItem.item(i).outerText;
+      let passageKorean = quizItemKorean.item(i).outerText;
       let passageBlank = passage.replace(randomWord, "______");
 
       resultHTML += `
-      <p class="text-english">${passageBlank}</p><br>`;
+      <p class="text-english">${passageBlank}</p>
+      <p class="text-korean">${passageKorean}</p><br>`;
     }
+    resultHTML += `
+    <div class="quiz-button-div">
+    <div class="toast-answer">정답입니다!</div>
+    <div class="toast-wrong">오답입니다!</div>
+    </div>`;
 
     //퀴즈 버튼 생성
     let j = 0;
@@ -418,9 +389,9 @@ fetch("json/quizWord.json")
           })">${randomWordArray[j]}</button>`;
         } else {
           resultHTML += `
-          <button class="custom-btn btn btn-${
+          <button class="custom-btn btn-${
             1 + j
-          } btn-wrong" onclick="quizBtn(${1 + j})">${
+          } btn btn-wrong" onclick="quizBtn(${1 + j})">${
             randomWordArray[j]
           }</button>`;
         }
@@ -440,13 +411,14 @@ fetch("json/quizWord.json")
       1 + randomWordArray.length
     } quiz-restart-button" onclick="quizBtn(${
       1 + randomWordArray.length
-    })">다시하기</button>
+    })">restart</button>
     </div>`;
 
     quiz.innerHTML = resultHTML;
   });
-
 //랜덤 퀴즈 버튼 클릭 함수
+let passageWrong = "";
+
 function quizBtn(buttonNum) {
   let buttonText = document.querySelector(`.btn-${buttonNum}`).innerText;
 
@@ -467,13 +439,35 @@ function quizBtn(buttonNum) {
         "______",
         `<span class="textDeco">${buttonText}</span><span>&nbsp</span>`
       )
-      .replace(`btn-${buttonNum}`, `btn-${buttonNum} btn-answer`);
+      .replaceAll("text-korean", `" style="display: block"`)
+      .replaceAll("btn btn-wrong", `btn-pressed" disabled = "true`)
+      .replace(`btn-${buttonNum}`, `btn-${buttonNum} btn-answer`)
+      .replace("toast-answer", "toast-answer toast-answer-animation");
 
     quiz.innerHTML = passageBlank;
+    console.log(quiz);
 
     //다시하기 버튼 생성
     document.querySelector(".quiz-restart-button").style.display = "block";
   } else {
     console.log("오답");
+
+    if (passageWrong == "") {
+      passageWrong = resultHTML
+        .replace(
+          `btn-${buttonNum} btn btn-wrong`,
+          `btn-${buttonNum} btn-pressed" disabled = "true`
+        )
+        .replace("toast-wrong", "toast-wrong toast-wrong-animation");
+    } else {
+      passageWrong = passageWrong
+        .replace(
+          `btn-${buttonNum} btn`,
+          `btn-${buttonNum} btn-pressed" disabled = "true`
+        )
+        .replace("toast-wrong", "toast-wrong toast-wrong-animation");
+    }
+
+    quiz.innerHTML = passageWrong;
   }
 }
