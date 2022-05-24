@@ -409,7 +409,7 @@ function randomQuiz() {
       1 + randomWordArray.length
     } quiz-restart-button" onclick="quizBtn(${
         1 + randomWordArray.length
-      })">restart</button>
+      })">New Quiz</button>
     </div>`;
 
       quiz.innerHTML = resultHTML;
