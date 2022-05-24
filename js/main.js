@@ -141,7 +141,7 @@ document.onpointerup = function () {
               data.searchResultMap.searchResultListMap.MEANING.items[0];
 
             resultHTML += `
-            <div><strong>${mapoWord}</strong>
+            <div class="title"><strong>${mapoWord}</strong>
             </div><hr>
             <strong class="parts-of-speech"><span>명사</span></strong>
             <div>1. ${json.expEntry}${json.meansCollector[0].means[0].value}</div><hr>
@@ -162,7 +162,7 @@ document.onpointerup = function () {
             let resultHTML = "";
 
             resultHTML += `
-            <div><strong>${mapoWord}</strong>
+            <div class="title"><strong>${mapoWord}</strong>
             </div><hr>
             <strong class="parts-of-speech"><span>명사</span></strong>
             <div>1. 마포구 상징 캐릭터</div><hr>
@@ -185,13 +185,13 @@ document.onpointerup = function () {
               mapoWord == "Mapo's"
             ) {
               resultHTML += `
-              <div><strong>${mapoWord}</strong>
+              <div class="title"><strong>${mapoWord}</strong>
               </div><hr>
               <strong class="parts-of-speech"><span>명사</span></strong>
               <div>1. 마포(구)(서울특별시의 서부에 있는 구이다)</div><hr>
               <div class="source">출처: 동아출판 프라임 한영사전</div>`;
             } else {
-              resultHTML = `<div>${json.expEntry}</div><hr>`;
+              resultHTML = `<div class="title">${json.expEntry}</div><hr>`;
               for (let i = 0; i < json.meansCollector.length; i++) {
                 if (json.meansCollector[i].partOfSpeech) {
                   resultHTML += `<strong class="parts-of-speech"><span>${json.meansCollector[i].partOfSpeech}</span></strong>`;
@@ -299,124 +299,129 @@ function shuffle(array) {
 }
 
 //랜덤 퀴즈 문제 출제
+
 let randomWord = "";
 let resultHTML = "";
 let findBtnIdx = 0;
 let randomPartNum = 0;
 
-fetch("json/quizWord.json")
-  .then((response) => response.json())
-  .then((json) => {
-    randomPartNum = Math.floor(Math.random() * json.quizWord.length); //랜덤 지문 선택
-    let quizWordLength = json.quizWord[randomPartNum].word.length; //선택된 지문 총 단어 갯수
-    let randomWordNum = Math.floor(Math.random() * quizWordLength); //선택된 지문 단어 랜덤 선택
-    randomWord = json.quizWord[randomPartNum].word[randomWordNum];
-    console.log("randomWord", randomWord);
+function randomQuiz() {
+  fetch("json/quizWord.json")
+    .then((response) => response.json())
+    .then((json) => {
+      randomPartNum = Math.floor(Math.random() * json.quizWord.length); //랜덤 지문 선택
+      let quizWordLength = json.quizWord[randomPartNum].word.length; //선택된 지문 총 단어 갯수
+      let randomWordNum = Math.floor(Math.random() * quizWordLength); //선택된 지문 단어 랜덤 선택
+      randomWord = json.quizWord[randomPartNum].word[randomWordNum];
+      console.log("randomWord", randomWord);
 
-    let quizItem = document.querySelectorAll(
-      `.text-english-part${randomPartNum + 1}`
-    );
-    let quizItemKorean = document.querySelectorAll(
-      `.text-korean-part${randomPartNum + 1}`
-    );
-    console.log("quizItemKorean", quizItemKorean);
-    let quiz = document.getElementById("quiz");
+      let quizItem = document.querySelectorAll(
+        `.text-english-part${randomPartNum + 1}`
+      );
+      let quizItemKorean = document.querySelectorAll(
+        `.text-korean-part${randomPartNum + 1}`
+      );
+      console.log("quizItemKorean", quizItemKorean);
+      let quiz = document.getElementById("quiz");
 
-    randomWordArray.push(randomWord);
+      randomWordArray.push(randomWord);
 
-    //정답 단어를 포함한 총 4개 단어 배열
-    while (randomWordArray.length < 4) {
-      let randomNum = randomButton(quizWordLength);
-      let jsonRandomWord = json.quizWord[randomPartNum].word[randomNum];
+      //정답 단어를 포함한 총 4개 단어 배열
+      while (randomWordArray.length < 4) {
+        let randomNum = randomButton(quizWordLength);
+        let jsonRandomWord = json.quizWord[randomPartNum].word[randomNum];
 
-      //배열 안에 해당 단어가 없을경우 push
-      if (!randomWordArray.includes(jsonRandomWord)) {
-        randomWordArray.push(jsonRandomWord);
+        //배열 안에 해당 단어가 없을경우 push
+        if (!randomWordArray.includes(jsonRandomWord)) {
+          randomWordArray.push(jsonRandomWord);
+        }
       }
-    }
 
-    console.log("randomWordArray", randomWordArray);
-    shuffle(randomWordArray); //버튼 배열 단어 랜덤 정렬
-    console.log("randomWordArray", randomWordArray);
+      console.log("randomWordArray", randomWordArray);
+      shuffle(randomWordArray); //버튼 배열 단어 랜덤 정렬
+      console.log("randomWordArray", randomWordArray);
 
-    findBtnIdx = randomWordArray.indexOf(randomWord) + 1; //정답 index 변수
-    console.log("findBtnIdx", findBtnIdx);
+      findBtnIdx = randomWordArray.indexOf(randomWord) + 1; //정답 index 변수
+      console.log("findBtnIdx", findBtnIdx);
 
-    resultHTML += `
+      resultHTML += `
     <h1>Random Quiz</h1><br>
     <div class="col m6 padding-large img-animation">
     <img src="images/part${
       randomPartNum + 1
     }-front.svg" class="round image opacity-min-part${
-      randomPartNum + 1
-    }-front"  width="100%">
+        randomPartNum + 1
+      }-front"  width="100%">
     <img src="images/part${
       randomPartNum + 1
     }-back.svg" class="padding-large round image opacity-min-part${
-      randomPartNum + 1
-    }-back"  width="100%">
+        randomPartNum + 1
+      }-back"  width="100%">
     </div>
     <div class="col m6 padding-large" id="quiz-passage">
     ${quizItem.item(0).outerHTML}
     ${quizItemKorean.item(0).outerHTML}
     <div/><br>`;
 
-    //퀴즈 지문 빈칸 생성
-    for (let i = 1; i < quizItem.length; i++) {
-      let passage = quizItem.item(i).outerText;
-      let passageKorean = quizItemKorean.item(i).outerText;
-      let passageBlank = passage.replace(randomWord, "______");
+      //퀴즈 지문 빈칸 생성
+      for (let i = 1; i < quizItem.length; i++) {
+        let passage = quizItem.item(i).outerText;
+        let passageKorean = quizItemKorean.item(i).outerText;
+        let passageBlank = passage.replace(randomWord, "______");
 
-      resultHTML += `
+        resultHTML += `
       <p class="text-english">${passageBlank}</p>
       <p class="text-korean">${passageKorean}</p><br>`;
-    }
-    resultHTML += `
+      }
+      resultHTML += `
     <div class="quiz-button-div">
     <div class="toast-answer">정답입니다!</div>
     <div class="toast-wrong">오답입니다!</div>
     </div>`;
 
-    //퀴즈 버튼 생성
-    let j = 0;
-    for (let i = 0; i < randomWordArray.length; i += 2) {
-      resultHTML += `<div class="quiz-button-div">`;
+      //퀴즈 버튼 생성
+      let j = 0;
+      for (let i = 0; i < randomWordArray.length; i += 2) {
+        resultHTML += `<div class="quiz-button-div">`;
 
-      for (j; j < randomWordArray.length; j++) {
-        if (1 + j == findBtnIdx) {
-          resultHTML += `
+        for (j; j < randomWordArray.length; j++) {
+          if (1 + j == findBtnIdx) {
+            resultHTML += `
           <button class="custom-btn btn btn-${1 + j}" onclick="quizBtn(${
-            1 + j
-          })">${randomWordArray[j]}</button>`;
-        } else {
-          resultHTML += `
+              1 + j
+            })">${randomWordArray[j]}</button>`;
+          } else {
+            resultHTML += `
           <button class="custom-btn btn-${
             1 + j
           } btn btn-wrong" onclick="quizBtn(${1 + j})">${
-            randomWordArray[j]
-          }</button>`;
+              randomWordArray[j]
+            }</button>`;
+          }
+
+          if (j == 1) {
+            j = randomWordArray.length;
+          }
         }
 
-        if (j == 1) {
-          j = randomWordArray.length;
-        }
+        j = randomWordArray.length - 2;
+        resultHTML += "</div>";
       }
 
-      j = randomWordArray.length - 2;
-      resultHTML += "</div>";
-    }
-
-    resultHTML += `
+      resultHTML += `
     <div class="quiz-button-div">
     <button class="custom-btn btn btn-${
       1 + randomWordArray.length
     } quiz-restart-button" onclick="quizBtn(${
-      1 + randomWordArray.length
-    })">restart</button>
+        1 + randomWordArray.length
+      })">restart</button>
     </div>`;
 
-    quiz.innerHTML = resultHTML;
-  });
+      quiz.innerHTML = resultHTML;
+    });
+}
+randomQuiz();
+
 //랜덤 퀴즈 버튼 클릭 함수
 let passageWrong = "";
 
@@ -426,7 +431,7 @@ function quizBtn(buttonNum) {
   //다시하기 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
     console.log("다시하기");
-    location.reload(true);
+    QuizRefresh();
     return;
   }
 
@@ -471,4 +476,19 @@ function quizBtn(buttonNum) {
 
     quiz.innerHTML = passageWrong;
   }
+}
+
+//랜덤 퀴즈 새로고침
+function QuizRefresh() {
+  randomWordArray = [];
+  randomWord = "";
+  resultHTML = "";
+  findBtnIdx = 0;
+  randomPartNum = 0;
+  passageWrong = "";
+  $("#quiz").load(window.location.href + " #quiz");
+  randomQuiz();
+  setTimeout(() => {
+    document.location.href = "#quiz";
+  }, 100);
 }

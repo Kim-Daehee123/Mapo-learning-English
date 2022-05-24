@@ -91,11 +91,11 @@ a {
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 3px 5px 3px;
+  padding: 5px 5px 5px 5px;
   position: absolute;
   z-index: 1;
   bottom: 130%;
-  left: -55%;
+  left: -70%;
   margin-right: -120px;
 
   /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
@@ -111,6 +111,9 @@ a {
   }
 }
 
+.title {
+  font-size: large;
+}
 #word {
   display: none;
   position: absolute;
