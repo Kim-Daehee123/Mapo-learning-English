@@ -265,7 +265,7 @@ a {
 .toast-answer {
   position: absolute;
   top: -300px;
-  display: block;
+  display: none;
   opacity: 0;
   text-align: center;
   width: 120px;
@@ -310,7 +310,7 @@ a {
 }
 
 .toast-wrong-animation {
-  animation-duration: 2s;
+  animation-duration: 1.5s;
   animation-name: toast-wrong;
   animation-timing-function: ease-in-out;
 }

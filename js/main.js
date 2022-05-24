@@ -455,9 +455,15 @@ function quizBtn(buttonNum) {
       .replaceAll("text-korean", `" style="display: block"`)
       .replaceAll("btn btn-wrong", `btn-pressed" disabled = "true`)
       .replace(`btn-${buttonNum}`, `btn-${buttonNum} btn-answer`)
-      .replace("toast-answer", "toast-answer toast-answer-animation");
-
+      .replace(
+        "toast-answer",
+        `toast-answer toast-answer-animation" style="display: block;`
+      );
     quiz.innerHTML = passageBlank;
+
+    setTimeout(() => {
+      document.querySelector(".toast-answer").style.display = "none";
+    }, 2000);
 
     //다시하기 버튼 생성
     document.querySelector(".quiz-restart-button").style.display = "block";
@@ -468,14 +474,14 @@ function quizBtn(buttonNum) {
           `btn-${buttonNum} btn btn-wrong`,
           `btn-${buttonNum} btn-pressed" disabled = "true`
         )
-        .replace("toast-wrong", "toast-wrong toast-wrong-animation");
+        .replace("toast-wrong", `toast-wrong toast-wrong-animation`);
     } else {
       passageWrong = passageWrong
         .replace(
           `btn-${buttonNum} btn`,
           `btn-${buttonNum} btn-pressed" disabled = "true`
         )
-        .replace("toast-wrong", "toast-wrong toast-wrong-animation");
+        .replace("toast-wrong", `toast-wrong toast-wrong-animation`);
     }
 
     quiz.innerHTML = passageWrong;
