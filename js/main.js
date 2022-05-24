@@ -189,7 +189,7 @@ document.onpointerup = function () {
               </div><hr>
               <strong class="parts-of-speech"><span>명사</span></strong>
               <div>1. 마포(구)(서울특별시의 서부에 있는 구이다)</div><hr>
-              <div class="source">출처: 동아출판 프라임 한영사전</div>`;
+              <div class="source">출처: 나무위키</div>`;
             } else {
               resultHTML = `<div class="title">${json.expEntry}</div><hr>`;
               for (let i = 0; i < json.meansCollector.length; i++) {
