@@ -313,7 +313,6 @@ function randomQuiz() {
       let quizWordLength = json.quizWord[randomPartNum].word.length; //선택된 지문 총 단어 갯수
       let randomWordNum = Math.floor(Math.random() * quizWordLength); //선택된 지문 단어 랜덤 선택
       randomWord = json.quizWord[randomPartNum].word[randomWordNum];
-      console.log("randomWord", randomWord);
 
       let quizItem = document.querySelectorAll(
         `.text-english-part${randomPartNum + 1}`
@@ -321,7 +320,6 @@ function randomQuiz() {
       let quizItemKorean = document.querySelectorAll(
         `.text-korean-part${randomPartNum + 1}`
       );
-      console.log("quizItemKorean", quizItemKorean);
       let quiz = document.getElementById("quiz");
 
       randomWordArray.push(randomWord);
@@ -337,9 +335,7 @@ function randomQuiz() {
         }
       }
 
-      console.log("randomWordArray", randomWordArray);
       shuffle(randomWordArray); //버튼 배열 단어 랜덤 정렬
-      console.log("randomWordArray", randomWordArray);
 
       findBtnIdx = randomWordArray.indexOf(randomWord) + 1; //정답 index 변수
       console.log("findBtnIdx", findBtnIdx);
@@ -366,12 +362,11 @@ function randomQuiz() {
       //퀴즈 지문 빈칸 생성
       for (let i = 1; i < quizItem.length; i++) {
         let passage = quizItem.item(i).outerText;
-        let passageKorean = quizItemKorean.item(i).outerText;
         let passageBlank = passage.replace(randomWord, "______");
 
         resultHTML += `
       <p class="text-english">${passageBlank}</p>
-      <p class="text-korean">${passageKorean}</p><br>`;
+      <p class="text-korean">${quizItemKorean.item(i).outerText}</p><br>`;
       }
       resultHTML += `
     <div class="quiz-button-div">
@@ -430,15 +425,27 @@ function quizBtn(buttonNum) {
 
   //다시하기 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
-    console.log("다시하기");
-    QuizRefresh();
+    randomWordArray = [];
+    randomWord = "";
+    resultHTML = "";
+    findBtnIdx = 0;
+    randomPartNum = 0;
+    passageWrong = "";
+
+    setTimeout(() => {
+      $("#quiz").load(window.location.href + " #quiz");
+      setTimeout(() => {
+        randomQuiz();
+        setTimeout(() => {
+          document.location.href = "#quiz";
+        }, 400);
+      }, 200);
+    }, 10);
     return;
   }
 
   //정답 버튼 이벤트
   if (buttonNum === findBtnIdx) {
-    console.log("정답");
-
     //지문 빈칸을 정답 단어로 치환
     let passageBlank = resultHTML
       .replaceAll(
@@ -451,13 +458,10 @@ function quizBtn(buttonNum) {
       .replace("toast-answer", "toast-answer toast-answer-animation");
 
     quiz.innerHTML = passageBlank;
-    console.log(quiz);
 
     //다시하기 버튼 생성
     document.querySelector(".quiz-restart-button").style.display = "block";
   } else {
-    console.log("오답");
-
     if (passageWrong == "") {
       passageWrong = resultHTML
         .replace(
@@ -476,19 +480,4 @@ function quizBtn(buttonNum) {
 
     quiz.innerHTML = passageWrong;
   }
-}
-
-//랜덤 퀴즈 새로고침
-function QuizRefresh() {
-  randomWordArray = [];
-  randomWord = "";
-  resultHTML = "";
-  findBtnIdx = 0;
-  randomPartNum = 0;
-  passageWrong = "";
-  $("#quiz").load(window.location.href + " #quiz");
-  randomQuiz();
-  setTimeout(() => {
-    document.location.href = "#quiz";
-  }, 100);
 }
