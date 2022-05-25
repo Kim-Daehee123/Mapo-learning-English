@@ -433,16 +433,13 @@ function quizBtn(buttonNum) {
     findBtnIdx = 0;
     randomPartNum = 0;
     passageWrong = "";
+    $("#quiz").load(window.location.href + " #quiz");
 
+    randomQuiz();
     setTimeout(() => {
-      $("#quiz").load(window.location.href + " #quiz");
-      setTimeout(() => {
-        randomQuiz();
-        setTimeout(() => {
-          document.location.href = "#quiz";
-        }, 400);
-      }, 200);
-    }, 10);
+      document.location.href = "#quiz";
+    }, 500);
+
     return;
   }
 
