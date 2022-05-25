@@ -356,7 +356,9 @@ function randomQuiz() {
     </div>
     <div class="col m6 padding-large" id="quiz-passage">
     ${quizItem.item(0).outerHTML}
-    ${quizItemKorean.item(0).outerHTML}
+    <h1 class="center text-korean text-title-korean"> ${
+      quizItemKorean.item(0).outerText
+    }</h1><br>
     <div/><br>`;
 
       //퀴즈 지문 빈칸 생성
@@ -423,7 +425,7 @@ let passageWrong = "";
 function quizBtn(buttonNum) {
   let buttonText = document.querySelector(`.btn-${buttonNum}`).innerText;
 
-  //다시하기 버튼 이벤트
+  //새 퀴즈 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
     randomWordArray = [];
     randomWord = "";
