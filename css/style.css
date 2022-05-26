@@ -156,6 +156,9 @@ a {
   overflow: none;
   z-index: -100;
 }
+.text-korean-title {
+  display: none;
+}
 .text-korean {
   display: none;
 }

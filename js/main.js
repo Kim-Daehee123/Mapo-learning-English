@@ -320,8 +320,8 @@ function randomQuiz() {
       let quizItemKorean = document.querySelectorAll(
         `.text-korean-part${randomPartNum + 1}`
       );
-      let quiz = document.getElementById("quiz");
 
+      let quiz = document.getElementById("quiz");
       randomWordArray.push(randomWord);
 
       //정답 단어를 포함한 총 4개 단어 배열
@@ -338,8 +338,6 @@ function randomQuiz() {
       shuffle(randomWordArray); //버튼 배열 단어 랜덤 정렬
 
       findBtnIdx = randomWordArray.indexOf(randomWord) + 1; //정답 index 변수
-      console.log("findBtnIdx", findBtnIdx);
-
       resultHTML += `
     <h1>Random Quiz</h1><br>
     <div class="col m6 padding-large img-animation">
@@ -355,8 +353,8 @@ function randomQuiz() {
       }-back"  width="100%">
     </div>
     <div class="col m6 padding-large" id="quiz-passage">
-    ${quizItem.item(0).outerHTML}
-    <h1 class="center text-korean text-title-korean"> ${
+    <h1 class="center text-english-title">${quizItem.item(0).outerText}</h1>
+    <h1 class="center text-korean-title"> ${
       quizItemKorean.item(0).outerText
     }</h1><br>
     <div/><br>`;
@@ -419,6 +417,19 @@ function randomQuiz() {
 }
 randomQuiz();
 
+//#quiz 새로고침 함수
+window.onload = function () {
+  let protocol = window.location.protocol;
+  let hostname = window.location.hostname;
+  let port = window.location.port;
+
+  if (window.location == `${protocol}//${hostname}:${port}/#quiz`) {
+    setTimeout(function () {
+      window.location.replace("#quiz");
+    }, 1000);
+  }
+};
+
 //랜덤 퀴즈 버튼 클릭 함수
 let passageWrong = "";
 
@@ -427,19 +438,7 @@ function quizBtn(buttonNum) {
 
   //새 퀴즈 버튼 이벤트
   if (buttonNum === randomWordArray.length + 1) {
-    randomWordArray = [];
-    randomWord = "";
-    resultHTML = "";
-    findBtnIdx = 0;
-    randomPartNum = 0;
-    passageWrong = "";
-    $("#quiz").load(window.location.href + " #quiz");
-
-    randomQuiz();
-    setTimeout(() => {
-      document.location.href = "#quiz";
-    }, 500);
-
+    newQuiz();
     return;
   }
 
@@ -451,7 +450,14 @@ function quizBtn(buttonNum) {
         "______",
         `<span class="textDeco">${buttonText}</span><span>&nbsp</span>`
       )
-      .replaceAll("text-korean", `" style="display: block"`)
+      .replace(
+        `class="center text-korean-title"`,
+        `class="center text-korean-title" style="display: block"`
+      )
+      .replaceAll(
+        `class="text-korean"`,
+        `class="text-korean" style="display: block"`
+      )
       .replaceAll("btn btn-wrong", `btn-pressed" disabled = "true`)
       .replace(`btn-${buttonNum}`, `btn-${buttonNum} btn-answer`)
       .replace(
@@ -485,4 +491,21 @@ function quizBtn(buttonNum) {
 
     quiz.innerHTML = passageWrong;
   }
+}
+
+//새로운 퀴즈 생성 함수
+function newQuiz() {
+  randomWordArray = [];
+  randomWord = "";
+  resultHTML = "";
+  findBtnIdx = 0;
+  randomPartNum = 0;
+  passageWrong = "";
+  document.getElementById("quiz").addEventListener("load", () => {
+    window.location.href + " #quiz";
+  });
+  randomQuiz();
+  setTimeout(() => {
+    window.location.replace("#quiz");
+  }, 200);
 }
