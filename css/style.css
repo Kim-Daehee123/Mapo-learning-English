@@ -53,20 +53,8 @@ img {
 a {
   color: inherit;
 }
-.text-english,
-.text-korean {
-  font-size: large;
-}
-.text-title-korean {
-  font-size: x-large;
-}
 
-.btn-tooltip {
-  display: flex;
-  justify-content: flex-end;
-  -webkit-user-drag: none;
-}
-
+/* btn-read */
 .btn-read {
   border: none;
   background-color: blanchedalmond;
@@ -74,6 +62,8 @@ a {
   position: relative;
   display: inline-block;
 }
+
+/* btn-korean */
 .btn-korean {
   padding: 2px 9.5px 2px 9.5px;
   border: none;
@@ -84,6 +74,12 @@ a {
   display: inline-block;
 }
 
+/* tooltip */
+.btn-tooltip {
+  display: flex;
+  justify-content: flex-end;
+  -webkit-user-drag: none;
+}
 .tooltip-text {
   visibility: hidden;
   width: auto;
@@ -97,8 +93,6 @@ a {
   bottom: 130%;
   left: -70%;
   margin-right: -120px;
-
-  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
   opacity: 0;
   transition: opacity 1s;
 }
@@ -111,9 +105,7 @@ a {
   }
 }
 
-.title {
-  font-size: large;
-}
+/* Passage translation */
 #word {
   display: none;
   position: absolute;
@@ -138,6 +130,7 @@ a {
   color: #f05650;
 }
 
+/* Passage translation location */
 #cal1 {
   position: absolute;
   height: 0px;
@@ -156,20 +149,14 @@ a {
   overflow: none;
   z-index: -100;
 }
-.text-korean-title {
-  display: none;
-}
-.text-korean {
-  display: none;
-}
 
+/* parts-of-speech */
 .parts-of-speech {
   display: block;
   font-weight: 400;
   margin-bottom: 7px;
   margin: 0 6px 13px -2px;
 }
-
 .parts-of-speech span {
   border: 1px solid #ccc;
   border-radius: 100px;
@@ -179,17 +166,35 @@ a {
   padding: 2px 8px 0;
 }
 
+/* quiz-passage*/
+.text-english,
+.text-korean {
+  font-size: large;
+}
+.text-title-korean {
+  font-size: x-large;
+}
+
+.text-korean-title {
+  display: none;
+}
+.text-korean {
+  display: none;
+}
+.title {
+  font-size: large;
+}
+
+/* quiz-button */
 .quiz-button-div {
   display: flex;
   justify-content: space-around;
   user-select: none;
   position: relative;
 }
-
 .quiz-restart-button {
   display: none;
 }
-
 .button {
   border: none;
   display: inline-block;
@@ -203,7 +208,6 @@ a {
   cursor: pointer;
   white-space: nowrap;
 }
-
 .custom-btn {
   width: 130px;
   height: 40px;
@@ -226,7 +230,6 @@ a {
   color: #000;
   font-size: 15px;
 }
-
 .btn-pressed {
   margin: 20px;
   border: none;
@@ -248,12 +251,10 @@ a {
     7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
   transition: all 0.3s ease;
 }
-
 .btn:hover {
   color: #000;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
 .btn:hover:after {
   left: auto;
   right: 0;
@@ -265,6 +266,28 @@ a {
   animation-name: wrongAnswerButton;
 }
 
+@keyframes wrongAnswerButton {
+  from {
+    background-color: #f05650;
+  }
+}
+
+.explanation {
+  text-align: center;
+  user-select: none;
+}
+.btn-answer {
+  background-color: lightgreen;
+}
+.btn-answer:active {
+  top: 2px;
+}
+.textDeco {
+  text-decoration: underline;
+  background: lightgreen;
+}
+
+/* toast */
 .toast-answer {
   position: absolute;
   top: -300px;
@@ -280,7 +303,6 @@ a {
   border-radius: 4px;
   border: 1px solid #000;
 }
-
 .toast-answer-animation {
   animation-duration: 2s;
   animation-name: toast-answer;
@@ -311,7 +333,6 @@ a {
   border-radius: 4px;
   border: 1px solid #000;
 }
-
 .toast-wrong-animation {
   animation-duration: 1.5s;
   animation-name: toast-wrong;
@@ -325,41 +346,6 @@ a {
   to {
     opacity: 0;
   }
-}
-
-@keyframes wrongAnswerButton {
-  from {
-    background-color: #f05650;
-  }
-}
-
-.explanation {
-  text-align: center;
-  user-select: none;
-}
-
-.btn-answer {
-  background-color: lightgreen;
-}
-.btn-answer:active {
-  top: 2px;
-}
-
-.textDeco {
-  text-decoration: underline;
-  background: lightgreen;
-}
-.mySlides {
-  display: none;
-}
-.mySlides img {
-  max-height: 351px;
-  object-fit: cover;
-  opacity: 0.9;
-  -webkit-user-drag: none;
-}
-img {
-  vertical-align: middle;
 }
 
 /* Footer */
@@ -389,6 +375,19 @@ img {
   max-width: 1050px;
   position: relative;
   margin: auto;
+}
+
+.mySlides {
+  display: none;
+}
+.mySlides img {
+  max-height: 351px;
+  object-fit: cover;
+  opacity: 0.9;
+  -webkit-user-drag: none;
+}
+img {
+  vertical-align: middle;
 }
 
 /* Next & previous buttons */

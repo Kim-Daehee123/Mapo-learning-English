@@ -298,8 +298,9 @@ function shuffle(array) {
   }
 }
 
-//랜덤 퀴즈 문제 출제
-
+/**
+ * 랜덤 퀴즈 생성 함수
+ */
 let randomWord = "";
 let resultHTML = "";
 let findBtnIdx = 0;
@@ -415,9 +416,11 @@ function randomQuiz() {
       quiz.innerHTML = resultHTML;
     });
 }
-randomQuiz();
+randomQuiz(); //랜덤 퀴즈 함수 호출
 
-//#quiz 새로고침 함수
+/**
+ * #quiz 새로고침 함수
+ */
 window.onload = function () {
   let protocol = window.location.protocol;
   let hostname = window.location.hostname;
@@ -430,7 +433,9 @@ window.onload = function () {
   }
 };
 
-//랜덤 퀴즈 버튼 클릭 함수
+/**
+ * 랜덤 퀴즈 버튼 클릭 함수
+ */
 let passageWrong = "";
 
 function quizBtn(buttonNum) {
@@ -493,19 +498,25 @@ function quizBtn(buttonNum) {
   }
 }
 
-//새로운 퀴즈 생성 함수
+/**
+ * 새로운 퀴즈 생성 함수
+ */
 function newQuiz() {
+  //초기화
   randomWordArray = [];
   randomWord = "";
   resultHTML = "";
   findBtnIdx = 0;
   randomPartNum = 0;
   passageWrong = "";
+
   document.getElementById("quiz").addEventListener("load", () => {
     window.location.href + " #quiz";
   });
-  randomQuiz();
+
+  randomQuiz(); //랜덤 퀴즈 생성 함수 호출
+
   setTimeout(() => {
-    window.location.replace("#quiz");
+    window.location.replace("#quiz"); //0.2초 뒤에 id quiz 이동
   }, 200);
 }
