@@ -26,4 +26,4 @@
 
 ### 배포
 
-- https://mapo-learning-english.netlify.app/
+- https://kim-daehee123.github.io/Mapo-learning-English/

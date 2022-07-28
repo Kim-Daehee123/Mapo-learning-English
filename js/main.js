@@ -122,9 +122,7 @@ rel2.selectNode(document.getElementById("cal2"));
 document.onpointerup = function () {
   if (!selectText().isCollapsed) {
     let word = document.getElementById("word");
-    fetch(
-      `https://my-simple-mapo-proxy.herokuapp.com/https://dict.naver.com/api3/enko/search?query=${selectText()}`
-    )
+    fetch(`https://hee-backend.shop:8080/english?id=${selectText()}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.searchResultMap) {
