@@ -1,3 +1,5 @@
+<image src="https://user-images.githubusercontent.com/57423919/183350147-da525f8a-2260-4216-9a3e-904da642329a.gif" />
+
 # 기획 프로젝트
 
 - Mapo Learning English(1인 개발 프로젝트)
